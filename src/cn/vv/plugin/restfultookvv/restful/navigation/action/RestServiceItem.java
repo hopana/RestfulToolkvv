@@ -10,8 +10,8 @@ import com.intellij.pom.Navigatable;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiMethod;
 import org.jetbrains.annotations.Nullable;
-import org.jetbrains.kotlin.psi.KtClass;
-import org.jetbrains.kotlin.psi.KtNamedFunction;
+//import org.jetbrains.kotlin.psi.KtClass;
+//import org.jetbrains.kotlin.psi.KtNamedFunction;
 
 import javax.swing.*;
 
@@ -109,11 +109,13 @@ public class RestServiceItem implements NavigationItem {
             if (psiElement instanceof PsiMethod) {
                 PsiMethod psiMethod = ((PsiMethod) psiElement);;
                 location = psiMethod.getContainingClass().getName().concat("#").concat(psiMethod.getName());
-            } else if (psiElement instanceof KtNamedFunction) {
-                KtNamedFunction ktNamedFunction = (KtNamedFunction) RestServiceItem.this.psiElement;
-                String className = ((KtClass) psiElement.getParent().getParent()).getName();
-                location = className.concat("#").concat(ktNamedFunction.getName());
             }
+//            TODO Kotlin
+//            else if (psiElement instanceof KtNamedFunction) {
+//                KtNamedFunction ktNamedFunction = (KtNamedFunction) RestServiceItem.this.psiElement;
+//                String className = ((KtClass) psiElement.getParent().getParent()).getName();
+//                location = className.concat("#").concat(ktNamedFunction.getName());
+//            }
 
             return "(" + location + ")";
         }

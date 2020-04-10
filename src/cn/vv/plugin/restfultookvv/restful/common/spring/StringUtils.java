@@ -58,7 +58,7 @@ public abstract class StringUtils {
 	 * </pre>
 	 * @param str the {@code CharSequence} to check (may be {@code null})
 	 * @return {@code true} if the {@code CharSequence} is not {@code null} and has length
-	 * @see #hasText(String)
+
 	 */
 	public static boolean hasLength(CharSequence str) {
 		return (str != null && str.length() > 0);
@@ -84,7 +84,6 @@ public abstract class StringUtils {
 	 * <p>The given {@code delimiters} string can consist of any number of
 	 * delimiter characters. Each of those characters can be used to separate
 	 * tokens. A delimiter is always a single character; for multi-character
-	 * delimiters, consider using {@link #delimitedListToStringArray}.
 	 * @param str the {@code String} to tokenize
 	 * @param delimiters the delimiter characters, assembled as a {@code String}
 	 * (each of the characters is individually considered as a delimiter)
@@ -96,7 +95,7 @@ public abstract class StringUtils {
 	 * was {@code null})
 	 * @see StringTokenizer
 	 * @see String#trim()
-	 * @see #delimitedListToStringArray
+
 	 */
 	public static String[] tokenizeToStringArray(
 			String str, String delimiters, boolean trimTokens, boolean ignoreEmptyTokens) {

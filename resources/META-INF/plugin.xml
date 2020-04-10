@@ -1,8 +1,8 @@
 <idea-plugin>
-  <id>cn.vv.plugin.restfultookVV</id>
-  <name>RestfulToolkitVV</name>
+  <id>cn.vv.plugin.restfultookvv</id>
+  <name>RestfulToolkvv</name>
   <version>0.1</version>
-  <vendor email="leerohwa@gmail.com" url="http://www.vv.cn">微微科技有限公司</vendor>
+  <vendor email="leerohwa@gmail.com" url="https://github.com/aloxc/RestfulToolkvv">aloxc</vendor>
 
   <description><![CDATA[
   <h3>A toolkit for RESTful services development.[base <a href=https://plugins.jetbrains.com/plugin/10292-restfultoolkit>RestfulToolkit 2.0.5</a> ]</h3>
@@ -70,6 +70,8 @@
 
   <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
   <idea-version since-build="193"/>
+<!--  <idea-version since-build="145.0"/>-->
+
 
   <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
        on how to target different products -->
@@ -77,9 +79,6 @@
   <depends>com.intellij.modules.lang</depends>
   -->
   <depends>com.intellij.modules.platform</depends>
-  <depends>com.intellij.properties</depends>
-  <depends>org.jetbrains.plugins.yaml</depends>
-  <depends>org.jetbrains.kotlin</depends>
 
   <project-components>
     <component>
@@ -100,7 +99,7 @@
   <extensions defaultExtensionNs="com.intellij">
     <projectService serviceImplementation="cn.vv.plugin.restfultookvv.restful.navigation.action.GotoRequestMappingConfiguration"/>
     <!-- Add your extensions here -->
-    <productivityFeaturesProvider  implementation="cn.vv.plugin.restfultookvv.restful.statistics.RestfulToolkitFeaturesProvider" />
+    <productivityFeaturesProvider  implementation="cn.vv.plugin.restfultookvv.restful.statistics.RestfulToolkvvFeaturesProvider" />
     <tipAndTrick feature-id="navigation.popup.service" file="GotoService.html"/>
   </extensions>
 
@@ -118,10 +117,10 @@
       <keyboard-shortcut keymap="$default" first-keystroke="alt shift R"/>
     </action>
 
-    <!--在controller method 中添加 RestfulToolkit 弹出操作，generate rest url、generate rest url with Possibly params （添加可能的参数，解析实体，@RequestBody）、gen json、
+    <!--在controller method 中添加 RestfulToolkvv 弹出操作，generate rest url、generate rest url with Possibly params （添加可能的参数，解析实体，@RequestBody）、gen json、
     gen key value for postman(postman 参数bulk edit)、 gen key value for apiview submit -->
     <!--rest 方法中添加-->
-    <group id="RestfulToolkitGroup" text="RestfulToolkit" description="RESTful Toolkit actions for rest method group"
+    <group id="RestfulToolkvvGroup" text="RestfulToolkvv" description="RESTful Toolkit actions for rest method group"
     >
       <!--<add-to-group group-id="EditorPopupMenu" anchor="first"/>-->
       <action class="cn.vv.plugin.restfultookvv.restful.method.action.GenerateFullUrlAction" id="GenerateFullRestUrl" text="Generate &amp;&amp; Copy Full URL">
@@ -141,7 +140,7 @@
     </group>
 
 
-    <group id="RestfulToolkit.RestMethod.EditorPopupMenu" text="RESTful Toolkit"
+    <group id="RestfulToolkvv.RestMethod.EditorPopupMenu" text="RESTful Toolkit"
            description="RESTful Toolkit"
            popup="false">
       <!--<add-to-group group-id="EditorPopupMenu" anchor="last" relative-to-action="EditorToggleColumnMode"/>-->
@@ -164,15 +163,38 @@
       <add-to-group group-id="EditorPopupMenu" anchor="first" />
     </action>
 
-    <!-- url 导航 -->
-    <action id="Toolkit.GotoService" class="cn.vv.plugin.restfultookvv.restful.navigation.action.GotoRequestMappingAction"
-            text="_Service" description="Go to Service"
-            icon="AllIcons.Actions.Search">
+    <!-- url 导航 ，搜索url -->
+    <action id="Toolkit.SearchService" class="cn.vv.plugin.restfultookvv.restful.navigation.action.SearchRequestMappingAction"
+            text="_Search Service" description="Go to Service"
+            icon="/icons/search.png">
       <add-to-group group-id="GoToTargetEx" anchor="first"/>
       <keyboard-shortcut keymap="$default" first-keystroke="ctrl BACK_SLASH" />
       <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt N"/>
     </action>
-
+<!--    全局參數設置按鈕 -->
+    <action id="Toolkit.GlobalsettingService" class="cn.vv.plugin.restfultookvv.restful.navigation.action.GlobalParameterSettingAction"
+            text="_Global parameter setting" description="Go to Service"
+            icon="/icons/setting.png">
+      <add-to-group group-id="GoToTargetEx"/>
+<!--      <keyboard-shortcut keymap="$default" first-keystroke="ctrl BACK_SLASH" />-->
+<!--      <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt N"/>-->
+    </action>
+    <!--    关于按钮 -->
+    <action id="Toolkit.AboutService" class="cn.vv.plugin.restfultookvv.restful.navigation.action.AboutAction"
+            text="_About us!" description="Go to Service"
+            icon="/icons/about.png">
+      <add-to-group group-id="GoToTargetEx"/>
+      <!--      <keyboard-shortcut keymap="$default" first-keystroke="ctrl BACK_SLASH" />-->
+      <!--      <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt N"/>-->
+    </action>
+    <!--    捐助 -->
+    <action id="Toolkit.DonateService" class="cn.vv.plugin.restfultookvv.restful.navigation.action.DonateAction"
+            text="_Donate us!" description="Go to Service"
+            icon="/icons/donate.png">
+      <add-to-group group-id="GoToTargetEx"/>
+      <!--      <keyboard-shortcut keymap="$default" first-keystroke="ctrl BACK_SLASH" />-->
+      <!--      <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt N"/>-->
+    </action>
     <!--code gen-->
     <!--
           <action class="cn.vv.plugin.restfultookvv.restful.codegen.SpringBootGenerator" id="CodeGen"
@@ -185,13 +207,17 @@
     <!--刷新-->
     <action id="Toolkit.RefreshServices" class="cn.vv.plugin.restfultookvv.restful.navigator.RefreshProjectAction"
             text="Refresh Services in Project"
-            icon="AllIcons.Actions.Refresh">
+            icon="/icons/refresh.png">
     </action>
 
     <group id="Toolkit.NavigatorActionsToolbar">
       <reference id="Toolkit.RefreshServices"/>
+      <reference id="Toolkit.SearchService"/>
       <separator/>
-      <reference id="Toolkit.GotoService"/>
+<!--      全局參數設置按鈕 加到本插件的上部导航-->
+      <reference id="Toolkit.GlobalsettingService"/>
+      <reference id="Toolkit.AboutService"/>
+      <reference id="Toolkit.DonateService"/>
       <separator/>
     </group>
 

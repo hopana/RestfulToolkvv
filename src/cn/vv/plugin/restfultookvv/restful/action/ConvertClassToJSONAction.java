@@ -7,9 +7,6 @@ import com.intellij.openapi.ide.CopyPasteManager;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.Nullable;
-import org.jetbrains.kotlin.asJava.LightClassUtil;
-import org.jetbrains.kotlin.asJava.LightClassUtilsKt;
-import org.jetbrains.kotlin.psi.KtClassOrObject;
 
 import java.awt.datatransfer.StringSelection;
 
@@ -31,17 +28,19 @@ public class ConvertClassToJSONAction extends AbstractBaseAction {
         if (psiElement instanceof PsiClass) {
             psiClass = (PsiClass) psiElement;
 
-        }else if (psiElement instanceof KtClassOrObject) {
-            if (LightClassUtil.INSTANCE.canGenerateLightClass((KtClassOrObject) psiElement)) {
-                psiClass = LightClassUtilsKt.toLightClass((KtClassOrObject) psiElement);
-            }
         }
+// TODO Kotlin
+//        else if (psiElement instanceof KtClassOrObject) {
+//            if (LightClassUtil.INSTANCE.canGenerateLightClass((KtClassOrObject) psiElement)) {
+//                psiClass = LightClassUtilsKt.toLightClass((KtClassOrObject) psiElement);
+//            }
+//        }
         return psiClass;
     }
 
     @Override
     public void update(AnActionEvent e) {
         PsiElement psiElement = e.getData(CommonDataKeys.PSI_ELEMENT);
-        setActionPresentationVisible(e,psiElement instanceof PsiClass || psiElement instanceof KtClassOrObject);
+        setActionPresentationVisible(e,psiElement instanceof PsiClass /*|| psiElement instanceof KtClassOrObject*/);
     }
 }

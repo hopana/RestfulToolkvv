@@ -7,9 +7,9 @@ import com.intellij.openapi.actionSystem.CommonDataKeys;
 import com.intellij.openapi.ide.CopyPasteManager;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiMethod;
-import org.jetbrains.kotlin.asJava.LightClassUtilsKt;
-import org.jetbrains.kotlin.psi.KtClassOrObject;
-import org.jetbrains.kotlin.psi.KtNamedFunction;
+//import org.jetbrains.kotlin.asJava.LightClassUtilsKt;
+//import org.jetbrains.kotlin.psi.KtClassOrObject;
+//import org.jetbrains.kotlin.psi.KtNamedFunction;
 
 import java.awt.datatransfer.StringSelection;
 import java.util.List;
@@ -29,15 +29,15 @@ public class GenerateQueryParamJsonAction extends SpringAnnotatedMethodAction {
         if (psiElement instanceof PsiMethod) {
             psiMethod = (PsiMethod) psiElement;
         }
-
-        if (psiElement instanceof KtNamedFunction) {
-            KtNamedFunction ktNamedFunction = (KtNamedFunction) psiElement;
-            PsiElement parentPsi = psiElement.getParent().getParent();
-            if (parentPsi instanceof KtClassOrObject) {
-                List<PsiMethod> psiMethods = LightClassUtilsKt.toLightMethods(ktNamedFunction);
-                psiMethod = psiMethods.get(0);
-            }
-        }
+//        TODO Kotlin
+//        if (psiElement instanceof KtNamedFunction) {
+//            KtNamedFunction ktNamedFunction = (KtNamedFunction) psiElement;
+//            PsiElement parentPsi = psiElement.getParent().getParent();
+//            if (parentPsi instanceof KtClassOrObject) {
+//                List<PsiMethod> psiMethods = LightClassUtilsKt.toLightMethods(ktNamedFunction);
+//                psiMethod = psiMethods.get(0);
+//            }
+//        }
 
         PsiMethodHelper psiMethodHelper = PsiMethodHelper.create(psiMethod);
         List<Parameter> parameterList = psiMethodHelper.getParameterList();

@@ -2,7 +2,6 @@ package cn.vv.plugin.restfultookvv.restful.navigator;
 
 
 import cn.vv.plugin.restfultookvv.restful.common.ToolkitIcons;
-import cn.vv.plugin.restfultookvv.utils.RestfulToolkitBundle;
 import cn.vv.plugin.restfultookvv.utils.ToolkitUtil;
 import com.intellij.ide.util.treeView.TreeState;
 import com.intellij.openapi.application.ApplicationManager;
@@ -30,7 +29,7 @@ import java.net.URL;
 public class RestServicesNavigator extends AbstractProjectComponent implements PersistentStateComponent<RestServicesNavigatorState>, ProjectComponent {
     public static final Logger LOG = Logger.getInstance(RestServicesNavigator.class);
 
-    public static final String TOOL_WINDOW_ID = "RestServices";
+    public static final String TOOL_WINDOW_ID = "RestServicesVV";
 
     protected final Project myProject;
 
@@ -67,7 +66,7 @@ public class RestServicesNavigator extends AbstractProjectComponent implements P
                 super.paintComponent(g);
 
                 final JLabel myLabel = new JLabel(
-                        RestfulToolkitBundle.message("toolkit.navigator.nothing.to.display", ToolkitUtil.formatHtmlImage(SYNC_ICON_URL)));
+                        String.format("No Services Found ,try use %s to refresh services",ToolkitUtil.formatHtmlImage(SYNC_ICON_URL)));
 
                 if (myProject.isInitialized()) {
                     return;

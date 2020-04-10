@@ -8,7 +8,7 @@ import com.intellij.remoteServer.util.CloudBundle;
 
 import java.util.Collections;
 
-public class RestfulToolkitFeaturesProvider extends ProductivityFeaturesProvider {
+public class RestfulToolkvvFeaturesProvider extends ProductivityFeaturesProvider {
   public static final String CLOUDS_GROUP_ID = "clouds";
   public static final String UPLOAD_SSH_KEY_FEATURE_ID = "upload.ssh.key";
 

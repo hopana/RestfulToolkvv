@@ -18,8 +18,6 @@ import gnu.trove.THashMap;
 import org.apache.commons.lang.StringUtils;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.Nullable;
-import org.jetbrains.kotlin.idea.KotlinLanguage;
-import org.jetbrains.kotlin.psi.KtNamedFunction;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultTreeModel;
@@ -372,15 +370,16 @@ public class RestServiceStructure  extends SimpleTreeStructure {
                 requestParams = psiMethodHelper.buildParamString();
                 requestBodyJson = psiMethodHelper.buildRequestBodyJson();
 
-            }else if(psiElement.getLanguage()== KotlinLanguage.INSTANCE){
-                if (psiElement instanceof KtNamedFunction) {
-                    KtNamedFunction ktNamedFunction = (KtNamedFunction) psiElement;
-                    KtFunctionHelper ktFunctionHelper = KtFunctionHelper.create(ktNamedFunction).withModule(serviceItem.getModule());
-                    requestParams = ktFunctionHelper.buildParamString();
-                    requestBodyJson =ktFunctionHelper.buildRequestBodyJson();
-                }
-
             }
+//            else if(psiElement.getLanguage()== KotlinLanguage.INSTANCE){
+//                if (psiElement instanceof KtNamedFunction) {
+//                    KtNamedFunction ktNamedFunction = (KtNamedFunction) psiElement;
+//                    KtFunctionHelper ktFunctionHelper = KtFunctionHelper.create(ktNamedFunction).withModule(serviceItem.getModule());
+//                    requestParams = ktFunctionHelper.buildParamString();
+//                    requestBodyJson =ktFunctionHelper.buildRequestBodyJson();
+//                }
+//
+//            }
 
             myRestServiceDetail.addRequestParamsTab(requestParams);
 
@@ -409,12 +408,14 @@ public class RestServiceStructure  extends SimpleTreeStructure {
                 PsiMethod psiMethod = myServiceItem.getPsiMethod();
                 OpenSourceUtil.navigate(psiMethod);
 
-            }else if(psiElement.getLanguage()== KotlinLanguage.INSTANCE){
-                if (psiElement instanceof KtNamedFunction) {
-                    KtNamedFunction ktNamedFunction = (KtNamedFunction) psiElement;
-                    OpenSourceUtil.navigate(ktNamedFunction);
-                }
             }
+//            TODO Kotlin
+//            else if(psiElement.getLanguage()== KotlinLanguage.INSTANCE){
+//                if (psiElement instanceof KtNamedFunction) {
+//                    KtNamedFunction ktNamedFunction = (KtNamedFunction) psiElement;
+//                    OpenSourceUtil.navigate(ktNamedFunction);
+//                }
+//            }
         }
 
         @Override

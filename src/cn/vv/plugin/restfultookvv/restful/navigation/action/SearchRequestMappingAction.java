@@ -26,8 +26,8 @@ import java.util.Arrays;
 import java.util.List;
 
 
-public class GotoRequestMappingAction extends GotoActionBase implements DumbAware {
-    public GotoRequestMappingAction() {
+public class SearchRequestMappingAction extends GotoActionBase implements DumbAware {
+    public SearchRequestMappingAction() {
     }
 
     @Override

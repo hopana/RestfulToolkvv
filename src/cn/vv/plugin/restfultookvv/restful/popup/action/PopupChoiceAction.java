@@ -21,7 +21,7 @@ public class PopupChoiceAction extends DumbAwareAction {
 
 
     public PopupChoiceAction() {
-        actionGroup = (ActionGroup) ActionManager.getInstance().getAction("RestfulToolkitGroup");
+        actionGroup = (ActionGroup) ActionManager.getInstance().getAction("RestfulToolkvvGroup");
     }
 
     @Override

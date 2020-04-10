@@ -7,9 +7,9 @@ import com.intellij.openapi.module.Module;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiMethod;
 import cn.vv.plugin.restfultookvv.restful.common.PsiMethodHelper;
-import org.jetbrains.kotlin.asJava.LightClassUtilsKt;
-import org.jetbrains.kotlin.psi.KtClassOrObject;
-import org.jetbrains.kotlin.psi.KtNamedFunction;
+//import org.jetbrains.kotlin.asJava.LightClassUtilsKt;
+//import org.jetbrains.kotlin.psi.KtClassOrObject;
+//import org.jetbrains.kotlin.psi.KtNamedFunction;
 
 import java.awt.datatransfer.StringSelection;
 import java.util.List;
@@ -38,24 +38,24 @@ public class GenerateFullUrlAction extends SpringAnnotatedMethodAction {
 
             CopyPasteManager.getInstance().setContents(new StringSelection(url));
         }
-
-        if (psiElement instanceof KtNamedFunction) {
-            KtNamedFunction ktNamedFunction = (KtNamedFunction) psiElement;
-            PsiElement parentPsi = psiElement.getParent().getParent();
-            if (parentPsi instanceof KtClassOrObject) {
-//                KtLightClass ktLightClass = LightClassUtilsKt.toLightClass(((KtClassOrObject) parentPsi));
-
-                List<PsiMethod> psiMethods = LightClassUtilsKt.toLightMethods(ktNamedFunction);
-                PsiMethod psiMethod = psiMethods.get(0);
-                ModuleHelper moduleHelper = ModuleHelper.create(module);
-
-                String url = PsiMethodHelper.create(psiMethod).withModule(module).buildFullUrlWithParams();
-
-                CopyPasteManager.getInstance().setContents(new StringSelection(url));
-
-            }
-
-        }
+//TODO Kotlin
+//        if (psiElement instanceof KtNamedFunction) {
+//            KtNamedFunction ktNamedFunction = (KtNamedFunction) psiElement;
+//            PsiElement parentPsi = psiElement.getParent().getParent();
+//            if (parentPsi instanceof KtClassOrObject) {
+////                KtLightClass ktLightClass = LightClassUtilsKt.toLightClass(((KtClassOrObject) parentPsi));
+//
+//                List<PsiMethod> psiMethods = LightClassUtilsKt.toLightMethods(ktNamedFunction);
+//                PsiMethod psiMethod = psiMethods.get(0);
+//                ModuleHelper moduleHelper = ModuleHelper.create(module);
+//
+//                String url = PsiMethodHelper.create(psiMethod).withModule(module).buildFullUrlWithParams();
+//
+//                CopyPasteManager.getInstance().setContents(new StringSelection(url));
+//
+//            }
+//
+//        }
 
     }
 
