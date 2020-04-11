@@ -156,36 +156,31 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
         casePane.setMinimumSize(new Dimension(250,26));
         casePane.setPreferredSize(new Dimension(250,26));
 
-//        caseTextPane.setHorizontalAlignment(GridConstraints.ALIGN_LEFT);
         casePane.add(caseTextPane,
                 new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
-                        GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
-                        GridConstraints.SIZEPOLICY_FIXED,
+                        GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED,
                         new Dimension(250,26), new Dimension(250,28),  new Dimension(250,28)));
 
         casePane.add(userCasePane,
                 new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
-                        GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
+                        GridConstraints.SIZEPOLICY_FIXED,
                         GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
                         new Dimension(250,-1), new Dimension(250,-1), new Dimension(250,-1)));
 
-
-
-
         requestPane.add(casePane,
                 new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
-                        GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
+                        GridConstraints.SIZEPOLICY_FIXED,
                         GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
                         new Dimension(250,-1), new Dimension(250,-1), new Dimension(250,-1)));
 
 
         requestPane.add(requestTabbedPane,
-                new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH,
+                new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
                         GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
                         GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
                         new Dimension(-1,-1), new Dimension(-1,-1), new Dimension(-1,-1)));
         this.add(requestPane,
-                new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH,
+                new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
                         GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
                         GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
                         new Dimension(-1,-1), new Dimension(-1,-1), new Dimension(-1,-1)));
