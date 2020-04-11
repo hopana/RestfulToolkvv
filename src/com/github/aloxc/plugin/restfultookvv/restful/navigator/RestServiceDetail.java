@@ -13,6 +13,7 @@ import com.intellij.openapi.progress.ProgressIndicator;
 import com.intellij.openapi.progress.ProgressManager;
 import com.intellij.openapi.progress.Task;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.util.IconLoader;
 import com.intellij.ui.components.JBPanel;
 import com.intellij.ui.components.JBScrollPane;
 import com.intellij.uiDesigner.core.GridConstraints;
@@ -48,10 +49,12 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
     public JTextField methodField;
     public JButton sendButton;
     public JTabbedPane requestTabbedPane;
+    private JTree userCasePane;
+    private JPanel requestPane;
+    private JLabel caseTextPane;
+    private JPanel casePane;
 
     public JTextArea requestParamsTextArea;
-    public JTextArea zzTextArea;
-
     public JTextArea requestBodyTextArea;
     public JTextArea responseTextArea;
 
@@ -104,8 +107,6 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
 //        urlField = new JBTextField();
 //        urlField.setColumns(20);
         urlField.setAutoscrolls(true);
-
-
 //        urlPanel.setLayout(new HorizontalLayout());
 
 //        urlPanel = new JBPanelWithEmptyText();
@@ -132,7 +133,6 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
                 new GridConstraints(0, 2, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
                         GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED,
                         null, null, null));
-
         this.setBorder(BorderFactory.createEmptyBorder());
         this.setLayout(new GridLayoutManager(2, 1));
 
@@ -140,11 +140,55 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
                 new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH,
                         GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED,
                         null, null, null));
-        this.add(requestTabbedPane,
+        GridLayoutManager requestLayoutManager = new GridLayoutManager(1, 2);
+        requestLayoutManager.setHGap(1);
+        requestLayoutManager.setVGap(1);
+        requestPane = new JBPanel<>();
+        requestPane.setLayout(requestLayoutManager);
+
+
+        GridLayoutManager casePaneLayoutManager = new GridLayoutManager(2, 1);
+        casePaneLayoutManager.setHGap(1);
+        casePaneLayoutManager.setVGap(1);
+        casePane = new JBPanel<>();
+        casePane.setLayout(casePaneLayoutManager);
+        casePane.setMaximumSize(new Dimension(250,26));
+        casePane.setMinimumSize(new Dimension(250,26));
+        casePane.setPreferredSize(new Dimension(250,26));
+
+//        caseTextPane.setHorizontalAlignment(GridConstraints.ALIGN_LEFT);
+        casePane.add(caseTextPane,
+                new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
+                        GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
+                        GridConstraints.SIZEPOLICY_FIXED,
+                        new Dimension(250,26), new Dimension(250,28),  new Dimension(250,28)));
+
+        casePane.add(userCasePane,
+                new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
+                        GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
+                        GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
+                        new Dimension(250,-1), new Dimension(250,-1), new Dimension(250,-1)));
+
+
+
+
+        requestPane.add(casePane,
+                new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
+                        GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
+                        GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
+                        new Dimension(250,-1), new Dimension(250,-1), new Dimension(250,-1)));
+
+
+        requestPane.add(requestTabbedPane,
+                new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH,
+                        GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
+                        GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
+                        new Dimension(-1,-1), new Dimension(-1,-1), new Dimension(-1,-1)));
+        this.add(requestPane,
                 new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH,
                         GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
                         GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
-                        null, null, null));
+                        new Dimension(-1,-1), new Dimension(-1,-1), new Dimension(-1,-1)));
     }
 
     private void bindSendButtonActionListener() {
@@ -211,7 +255,6 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
         requestTabbedPane.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                System.out.println(e.getClickCount());
                 super.mouseClicked(e);
 //                urlField.moveCaretPosition(urlField.getDocument().getLength());
 //                urlField.select(0,0);
@@ -238,7 +281,6 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
         /*urlField.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                System.out.println(e.getClickCount());
                 super.mouseClicked(e);
 //                urlField.moveCaretPosition(urlField.getDocument().getLength());
 //                urlField.select(0,0);
