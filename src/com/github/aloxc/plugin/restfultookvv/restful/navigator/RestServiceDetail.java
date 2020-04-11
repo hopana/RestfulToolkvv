@@ -208,31 +208,31 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
     }
 
     private void bindUrlTextActionListener() {
-         requestTabbedPane.addMouseListener(new MouseAdapter() {
-             @Override
-             public void mouseClicked(MouseEvent e) {
-                 System.out.println(e.getClickCount());
-                 super.mouseClicked(e);
+        requestTabbedPane.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                System.out.println(e.getClickCount());
+                super.mouseClicked(e);
 //                urlField.moveCaretPosition(urlField.getDocument().getLength());
 //                urlField.select(0,0);
-             }
+            }
 
-             @Override
-             public void mousePressed(MouseEvent e) {
-                 super.mousePressed(e);
+            @Override
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
                 urlField.selectAll();
-             }
-             @Override
-             public void mouseEntered(MouseEvent e) {
-                 super.mousePressed(e);
-                 urlField.selectAll();
-             }
-             @Override
-             public void mouseMoved(MouseEvent e) {
-                 super.mousePressed(e);
-                 urlField.selectAll();
-             }
-         });
+            }
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mousePressed(e);
+                urlField.selectAll();
+            }
+            @Override
+            public void mouseMoved(MouseEvent e) {
+                super.mousePressed(e);
+                urlField.selectAll();
+            }
+        });
 
 
         /*urlField.addMouseListener(new MouseAdapter() {
@@ -391,7 +391,7 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
 
     @NotNull  // editor.xml
     private Font getEffectiveFont(String text) {
-         FontPreferences fontPreferences = this.getFontPreferences();
+        FontPreferences fontPreferences = this.getFontPreferences();
 
         List<String> effectiveFontFamilies = fontPreferences.getEffectiveFontFamilies();
 

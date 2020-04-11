@@ -36,7 +36,14 @@ public class RestServiceProject {
         this.serviceItems = serviceItems;
     }
 
-    // service list
+    public List<RestServiceItem> getServiceItems() {
+        return serviceItems;
+    }
+
+    public void setServiceItems(List<RestServiceItem> serviceItems) {
+        this.serviceItems = serviceItems;
+    }
+// service list
 
     public String getPort() {
         return port;
