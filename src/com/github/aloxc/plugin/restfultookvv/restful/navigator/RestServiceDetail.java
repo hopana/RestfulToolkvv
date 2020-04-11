@@ -297,7 +297,7 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
 
         highlightTextAreaData(requestParamsTextArea);
 
-        addRequestTabbedPane("RequestParams", requestParamsTextArea);
+        addRequestTabbedPane("RequestParam(s)", requestParamsTextArea);
 
     }
 
