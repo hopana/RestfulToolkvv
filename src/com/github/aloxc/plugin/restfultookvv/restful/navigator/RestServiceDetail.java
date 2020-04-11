@@ -22,6 +22,7 @@ import org.apache.commons.lang.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
+import javax.swing.tree.DefaultTreeCellRenderer;
 import java.awt.*;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyAdapter;
@@ -53,6 +54,8 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
     private JPanel requestPane;
     private JLabel caseTextPane;
     private JPanel casePane;
+    private JButton saveCaseButton;
+    private JPanel caseTitlePane;
 
     public JTextArea requestParamsTextArea;
     public JTextArea requestBodyTextArea;
@@ -150,16 +153,42 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
         GridLayoutManager casePaneLayoutManager = new GridLayoutManager(2, 1);
         casePaneLayoutManager.setHGap(1);
         casePaneLayoutManager.setVGap(1);
+        casePaneLayoutManager.setMargin(new Insets(0,5,0,0));
         casePane = new JBPanel<>();
         casePane.setLayout(casePaneLayoutManager);
         casePane.setMaximumSize(new Dimension(250,26));
         casePane.setMinimumSize(new Dimension(250,26));
         casePane.setPreferredSize(new Dimension(250,26));
 
-        casePane.add(caseTextPane,
+        GridLayoutManager caseTitleLayoutManager = new GridLayoutManager(1, 2);
+        caseTitleLayoutManager.setHGap(1);
+        caseTitleLayoutManager.setVGap(1);
+        caseTitleLayoutManager.setMargin(new Insets(0,10,0,0));
+        caseTitlePane = new JBPanel<>();
+
+        caseTitlePane.add(caseTextPane,
                 new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
                         GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED,
-                        new Dimension(250,26), new Dimension(250,28),  new Dimension(250,28)));
+                        new Dimension(50,28), new Dimension(50,28),  new Dimension(50,28)));
+
+        caseTitlePane.add(saveCaseButton,
+                new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
+                        GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED,
+                        new Dimension(180,28), new Dimension(180,28),  new Dimension(180,28)));
+
+        casePane.add(caseTitlePane,
+                new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
+                        GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED,
+                        new Dimension(250,28), new Dimension(250,28),  new Dimension(250,28)));
+
+        userCasePane.setRootVisible(false);
+        userCasePane.setShowsRootHandles(false);
+        userCasePane.setRowHeight(22);
+        DefaultTreeCellRenderer render=(DefaultTreeCellRenderer)(userCasePane.getCellRenderer());
+        render.setIcon(null);
+        render.setLeafIcon(null);
+        render.setOpenIcon(null);
+        render.setClosedIcon(null);
 
         casePane.add(userCasePane,
                 new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
