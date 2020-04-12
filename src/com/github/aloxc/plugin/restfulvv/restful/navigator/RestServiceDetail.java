@@ -61,6 +61,7 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
     private JScrollPane userCaseScroll;
     private JButton deleteButton;
     private JButton modifyButton;
+    private JPanel rootPanel;
 
     public JTextArea requestParamsTextArea;
     public JTextArea requestBodyTextArea;

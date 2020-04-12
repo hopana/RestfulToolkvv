@@ -205,14 +205,22 @@ Module level components 对应的是 Project 里的每个 Module.
             text="_Test all case in project " description="Go to Service"
             icon="/icons/test.png">
     </action>
-<!--    全局參數設置按鈕 -->
+    <!--    全局參數設置按鈕 -->
     <action id="Toolkit.GlobalsettingService" class="com.github.aloxc.plugin.restfulvv.restful.navigation.action.GlobalParameterSettingAction"
             icon="/icons/setting.png" text="Global setting">
+    </action>
+    <!--    语言切换按钮 -->
+    <action id="Toolkit.LanguageService" class="com.github.aloxc.plugin.restfulvv.restful.navigation.action.LanguageAction"
+            icon="/icons/language.png" text="Switch language">
     </action>
     <!--    关于按钮 -->
     <action id="Toolkit.AboutService" class="com.github.aloxc.plugin.restfulvv.restful.navigation.action.AboutAction"
             text="_About RestfulVV!" description="Go to Service"
             icon="/icons/about.png">
+    </action>
+    <action id="Toolkit.FeedbackService" class="com.github.aloxc.plugin.restfulvv.restful.navigation.action.FeedbackAction"
+            text="_Feedback restfulVV!" description="Go to Service"
+            icon="/icons/feedback.png">
     </action>
     <!--    捐助 -->
     <action id="Toolkit.DonateService" class="com.github.aloxc.plugin.restfulvv.restful.navigation.action.DonateAction"
@@ -250,7 +258,10 @@ Module level components 对应的是 Project 里的每个 Module.
 <!--      全局參數設置按鈕 加到本插件的上部导航-->
       <reference id="Toolkit.ImportPostmanServices"/>
       <reference id="Toolkit.GlobalsettingService"/>
+      <reference id="Toolkit.LanguageService"/>
+      <separator/>
       <reference id="Toolkit.AboutService"/>
+      <reference id="Toolkit.FeedbackService"/>
       <reference id="Toolkit.DonateService"/>
       <separator/>
     </group>

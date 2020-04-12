@@ -3,6 +3,7 @@ package com.github.aloxc.plugin.restfulvv.restful.navigation.action;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.project.DumbAware;
+import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.util.IconLoader;
 import org.jetbrains.annotations.NotNull;
@@ -14,6 +15,7 @@ import org.jetbrains.annotations.NotNull;
 public class AboutAction extends AnAction implements DumbAware {
     @Override
     public void actionPerformed(@NotNull AnActionEvent anActionEvent) {
+
         Messages.showMessageDialog(" <h3>一套 RESTful 服务开发辅助工具集。</h3>\n" +
                 "  <ul>\n" +
                 "   <li>1.根据 URL 直接跳转到对应的方法定义 ( Ctrl \\ or Ctrl Alt N ); </li>\n" +
