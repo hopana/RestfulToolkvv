@@ -1,8 +1,8 @@
 <idea-plugin>
-  <id>com.github.aloxc.plugin.restfultookvv</id>
-  <name>RestfulToolkvv</name>
+  <id>com.github.aloxc.plugin.restfulvv</id>
+  <name>RestfulVV</name>
   <version>0.1</version>
-  <vendor email="leerohwa@gmail.com" url="https://github.com/aloxc/RestfulToolkvv">aloxc</vendor>
+  <vendor email="leerohwa@gmail.com" url="https://github.com/aloxc/RestfulVV">aloxc</vendor>
 
 <!--  插件描述 -->
   <description><![CDATA[
@@ -36,7 +36,7 @@
   <change-notes><![CDATA[
         <li>2.0.5 Bug fixed, supported http request OPTIONS,TRACE,CONNECT methods. </li>
         <li>2.0.4 Fixed NullPointerException with Kotlin project.<br/>
-                  Fixed IllegalArgumentException: No enum constant com.github.aloxc.plugin.restfultookvv.restful.method.HttpMethod.HEAD <br/>
+                  Fixed IllegalArgumentException: No enum constant com.github.aloxc.plugin.restfulvv.restful.method.HttpMethod.HEAD <br/>
                   Supported Kotlin 1.2 level. </li>
         <li>2.0.3 Improvements in navigate service(url), auto pasted copied http url to from clipboard.<br/>
                   Bug fixed.<br/> </li>
@@ -84,24 +84,24 @@
 
   <project-components>
     <component>
-      <implementation-class>com.github.aloxc.plugin.restfultookvv.restful.navigator.RestServicesNavigator</implementation-class>
+      <implementation-class>com.github.aloxc.plugin.restfulvv.restful.navigator.RestServicesNavigator</implementation-class>
     </component>
     <component>
-      <implementation-class>com.github.aloxc.plugin.restfultookvv.restful.navigator.RestServiceProjectsManager</implementation-class>
+      <implementation-class>com.github.aloxc.plugin.restfulvv.restful.navigator.RestServiceProjectsManager</implementation-class>
     </component>
     <!--        <component>
                 <implementation-class>GotoRequestMappingConfiguration</implementation-class>
             </component>-->
     <component>
-      <implementation-class>com.github.aloxc.plugin.restfultookvv.restful.navigator.RestServiceDetail</implementation-class>
+      <implementation-class>com.github.aloxc.plugin.restfulvv.restful.navigator.RestServiceDetail</implementation-class>
     </component>
   </project-components>
 
 <!--extensions 这里一般会放一些我们自己的扩展的东西，比如新增高亮显示，新增语言支持都是需要在这里进行扩展-->
   <extensions defaultExtensionNs="com.intellij">
-    <projectService serviceImplementation="com.github.aloxc.plugin.restfultookvv.restful.navigation.action.GotoRequestMappingConfiguration"/>
+    <projectService serviceImplementation="com.github.aloxc.plugin.restfulvv.restful.navigation.action.GotoRequestMappingConfiguration"/>
     <!-- Add your extensions here -->
-    <productivityFeaturesProvider  implementation="com.github.aloxc.plugin.restfultookvv.restful.statistics.RestfulToolkvvFeaturesProvider" />
+    <productivityFeaturesProvider  implementation="com.github.aloxc.plugin.restfulvv.restful.statistics.RestfulToolkvvFeaturesProvider" />
     <tipAndTrick feature-id="navigation.popup.service" file="GotoService.html"/>
   </extensions>
 
@@ -139,7 +139,7 @@ Module level components 对应的是 Project 里的每个 Module.
 <!--actions 新增的Action类需要在这里注册，用于菜单栏扩展-->
   <actions>
     <action id="Popup.PopupChoiceAction"
-            class="com.github.aloxc.plugin.restfultookvv.restful.popup.action.PopupChoiceAction"
+            class="com.github.aloxc.plugin.restfulvv.restful.popup.action.PopupChoiceAction"
             text="Popup RESTful Toolkit ..."
             description="Popup RESTful Toolkit ...">
       <add-to-group group-id="EditMenu" anchor="last"/>
@@ -152,16 +152,16 @@ Module level components 对应的是 Project 里的每个 Module.
     <group id="RestfulToolkvvGroup" text="RestfulToolkvv" description="RESTful Toolkit actions for rest method group"
     >
       <!--<add-to-group group-id="EditorPopupMenu" anchor="first"/>-->
-      <action class="com.github.aloxc.plugin.restfultookvv.restful.method.action.GenerateFullUrlAction" id="GenerateFullRestUrl" text="Generate &amp;&amp; Copy Full URL">
+      <action class="com.github.aloxc.plugin.restfulvv.restful.method.action.GenerateFullUrlAction" id="GenerateFullRestUrl" text="Generate &amp;&amp; Copy Full URL">
         <add-to-group group-id="EditorPopupMenu" anchor="first"/>
       </action>
-      <action class="com.github.aloxc.plugin.restfultookvv.restful.method.action.GenerateUrlAction" id="GenerateRestUrl" text="Generate &amp;&amp; Copy Relation URL">
+      <action class="com.github.aloxc.plugin.restfulvv.restful.method.action.GenerateUrlAction" id="GenerateRestUrl" text="Generate &amp;&amp; Copy Relation URL">
         <add-to-group group-id="EditorPopupMenu" anchor="first"/>
       </action>
-      <action class="com.github.aloxc.plugin.restfultookvv.restful.method.action.GenerateQueryParamJsonAction" id="GenerateRequestBodyJson" text="Generate &amp;&amp; Copy RequestBody (JSON)">
+      <action class="com.github.aloxc.plugin.restfulvv.restful.method.action.GenerateQueryParamJsonAction" id="GenerateRequestBodyJson" text="Generate &amp;&amp; Copy RequestBody (JSON)">
         <add-to-group group-id="EditorPopupMenu" anchor="first"/>
       </action>
-      <action class="com.github.aloxc.plugin.restfultookvv.restful.method.action.GenerateQueryParamAction" id="BuildQueryParam" text="Generate &amp;&amp; Copy Query Param (Key Value)">
+      <action class="com.github.aloxc.plugin.restfulvv.restful.method.action.GenerateQueryParamAction" id="BuildQueryParam" text="Generate &amp;&amp; Copy Query Param (Key Value)">
         <add-to-group group-id="EditorPopupMenu" anchor="first"/>
       </action>
       <!--jaxrs-->
@@ -185,15 +185,15 @@ Module level components 对应的是 Project 里的每个 Module.
     <!--跳转导航： 根据rest url 导航 参考 request mapper  ( Enter mapping url ) 快捷键用 ctl alt n -->
 
     <!-- show services -->
-    <action id="ConvertClassToJSONAction" class="com.github.aloxc.plugin.restfultookvv.restful.action.ConvertClassToJSONAction" text="Convert to JSON" description="Convert to JSON">
+    <action id="ConvertClassToJSONAction" class="com.github.aloxc.plugin.restfulvv.restful.action.ConvertClassToJSONAction" text="Convert to JSON" description="Convert to JSON">
       <add-to-group group-id="EditorPopupMenu" anchor="first" />
     </action>
-    <action id="ConvertClassToJSONCompressedAction" class="com.github.aloxc.plugin.restfultookvv.restful.action.ConvertClassToJSONCompressedAction" text="Convert to JSON (Compressed)" description="Convert to JSON (Compressed)">
+    <action id="ConvertClassToJSONCompressedAction" class="com.github.aloxc.plugin.restfulvv.restful.action.ConvertClassToJSONCompressedAction" text="Convert to JSON (Compressed)" description="Convert to JSON (Compressed)">
       <add-to-group group-id="EditorPopupMenu" anchor="first" />
     </action>
 
     <!-- url 导航 ，搜索url -->
-    <action id="Toolkit.SearchService" class="com.github.aloxc.plugin.restfultookvv.restful.navigation.action.SearchRequestMappingAction"
+    <action id="Toolkit.SearchService" class="com.github.aloxc.plugin.restfulvv.restful.navigation.action.SearchRequestMappingAction"
             text="_Search Service" description="Go to Service"
             icon="/icons/search.png">
       <add-to-group group-id="GoToTargetEx" anchor="first"/>
@@ -201,29 +201,29 @@ Module level components 对应的是 Project 里的每个 Module.
       <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt N"/>
     </action>
     <!--    testAll -->
-    <action id="Toolkit.TestAllService" class="com.github.aloxc.plugin.restfultookvv.restful.navigation.action.TestAllAction"
+    <action id="Toolkit.TestAllService" class="com.github.aloxc.plugin.restfulvv.restful.navigation.action.TestAllAction"
             text="_Test all case in project " description="Go to Service"
             icon="/icons/test.png">
     </action>
 <!--    全局參數設置按鈕 -->
-    <action id="Toolkit.GlobalsettingService" class="com.github.aloxc.plugin.restfultookvv.restful.navigation.action.GlobalParameterSettingAction"
+    <action id="Toolkit.GlobalsettingService" class="com.github.aloxc.plugin.restfulvv.restful.navigation.action.GlobalParameterSettingAction"
             icon="/icons/setting.png" text="Global setting">
     </action>
     <!--    关于按钮 -->
-    <action id="Toolkit.AboutService" class="com.github.aloxc.plugin.restfultookvv.restful.navigation.action.AboutAction"
-            text="_About RestfulTookvv!" description="Go to Service"
+    <action id="Toolkit.AboutService" class="com.github.aloxc.plugin.restfulvv.restful.navigation.action.AboutAction"
+            text="_About RestfulVV!" description="Go to Service"
             icon="/icons/about.png">
     </action>
     <!--    捐助 -->
-    <action id="Toolkit.DonateService" class="com.github.aloxc.plugin.restfultookvv.restful.navigation.action.DonateAction"
-          text="_Donate RestfulTookvv!" description="Go to Service"
+    <action id="Toolkit.DonateService" class="com.github.aloxc.plugin.restfulvv.restful.navigation.action.DonateAction"
+          text="_Donate RestfulVV!" description="Go to Service"
     icon="/icons/donate.png">
       <add-to-group group-id="GoToTargetEx"/>
     </action>
 
     <!--code gen-->
     <!--
-          <action class="com.github.aloxc.plugin.restfultookvv.restful.codegen.SpringBootGenerator" id="CodeGen"
+          <action class="com.github.aloxc.plugin.restfulvv.restful.codegen.SpringBootGenerator" id="CodeGen"
                   text="SpringBoot Generator"
                   description="SpringBoot Generator">
               <add-to-group group-id="GenerateGroup" anchor="first"/>
@@ -231,12 +231,12 @@ Module level components 对应的是 Project 里的每个 Module.
     -->
 
     <!--刷新-->
-    <action id="Toolkit.RefreshServices" class="com.github.aloxc.plugin.restfultookvv.restful.navigation.action.RefreshProjectAction"
+    <action id="Toolkit.RefreshServices" class="com.github.aloxc.plugin.restfulvv.restful.navigation.action.RefreshProjectAction"
             text="Refresh Services in Project"
             icon="/icons/refresh.png">
     </action>
     <!--导入postman-->
-    <action id="Toolkit.ImportPostmanServices" class="com.github.aloxc.plugin.restfultookvv.restful.navigation.action.ImportPostmanAction"
+    <action id="Toolkit.ImportPostmanServices" class="com.github.aloxc.plugin.restfulvv.restful.navigation.action.ImportPostmanAction"
             text="import postman data"
             icon="/icons/p.png">
     </action>
@@ -256,18 +256,18 @@ Module level components 对应的是 Project 里的每个 Module.
     </group>
 
 <!--    <group id="Toolkit.NavigatorServiceMenu">-->
-<!--      <action id="Menu.CopyFullUrlAction" class="com.github.aloxc.plugin.restfultookvv.restful.navigator.CopyFullUrlAction"-->
+<!--      <action id="Menu.CopyFullUrlAction" class="com.github.aloxc.plugin.restfulvv.restful.navigator.CopyFullUrlAction"-->
 <!--              text="Copy Full Url"-->
 <!--              icon="AllIcons.Actions.Copy">-->
 <!--      </action>-->
-<!--      <action id="Menu.EditSourceAction" class="com.github.aloxc.plugin.restfultookvv.restful.navigator.EditSourceAction"-->
+<!--      <action id="Menu.EditSourceAction" class="com.github.aloxc.plugin.restfulvv.restful.navigator.EditSourceAction"-->
 <!--              text="Jump to Source"-->
 <!--              icon="AllIcons.Actions.EditSource">-->
 <!--      </action>-->
 <!--      <separator/>-->
 <!--    </group>-->
 
-    <!--      <action id="SpringBootAppRunnerAction" class="com.github.aloxc.plugin.restfultookvv.restful.runner.SpringBootAppRunnerAction" text="SpringBootAppRunnerAction"
+    <!--      <action id="SpringBootAppRunnerAction" class="com.github.aloxc.plugin.restfulvv.restful.runner.SpringBootAppRunnerAction" text="SpringBootAppRunnerAction"
                   description="SpringBootAppRunnerAction">
               &lt;!&ndash;<add-to-group group-id="RunnerActions" anchor="after" relative-to-action=""/>&ndash;&gt;
               <add-to-group group-id="NewGroup" anchor="after" relative-to-action="NewDir"/>

@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.github.aloxc.plugin.restfulvv.restful.navigator.RestServiceDetail">
+  <grid id="27dc6" layout-manager="GridLayoutManager" row-count="2" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="0" left="0" bottom="0" right="0"/>
+    <constraints>
+      <xy x="1" y="-1" width="496" height="499"/>
+    </constraints>
+    <properties>
+      <background color="-855310"/>
+      <enabled value="true"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <grid id="391b9" binding="urlPanel" layout-manager="GridLayoutManager" row-count="3" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="3" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="560f" class="javax.swing.JTextField" binding="methodField">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+            </constraints>
+            <properties>
+              <text value="GET|POST|..."/>
+            </properties>
+          </component>
+          <component id="2cab0" class="javax.swing.JTextField" binding="urlField">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+            </constraints>
+            <properties>
+              <text value="URL"/>
+            </properties>
+          </component>
+          <component id="a0493" class="javax.swing.JButton" binding="sendButton">
+            <constraints>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <enabled value="true"/>
+              <foreground color="-61952"/>
+              <horizontalTextPosition value="0"/>
+              <text value="Send.."/>
+              <verticalAlignment value="0"/>
+              <verticalTextPosition value="0"/>
+            </properties>
+            <clientProperties>
+              <hideActionText class="java.lang.Boolean" value="false"/>
+              <html.disable class="java.lang.Boolean" value="false"/>
+            </clientProperties>
+          </component>
+        </children>
+      </grid>
+      <grid id="7e550" binding="requestPane" layout-manager="GridLayoutManager" row-count="1" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="3" vsize-policy="3" hsize-policy="3" anchor="8" fill="2" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-1"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <grid id="4cfdc" binding="midPane" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="5" bottom="0" right="0"/>
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                <preferred-size width="250" height="-1"/>
+              </grid>
+            </constraints>
+            <properties>
+              <background color="-1"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <scrollpane id="ac552" binding="userCaseScroll">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="1ac25" class="javax.swing.JTree" binding="userCaseTree">
+                    <constraints/>
+                    <properties>
+                      <background color="-1"/>
+                      <rootVisible value="false"/>
+                      <showsRootHandles value="false"/>
+                    </properties>
+                  </component>
+                </children>
+              </scrollpane>
+              <component id="fa029" class="javax.swing.JLabel" binding="caseTextPane">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="9" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <background color="-14862606"/>
+                  <text value="Case(s)"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <tabbedpane id="e7133" binding="rightTabbedPane">
+            <constraints>
+              <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="8" fill="2" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children/>
+          </tabbedpane>
+          <grid id="ce03f" binding="leftNavPane" layout-manager="GridLayoutManager" row-count="5" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="1" fill="0" indent="0" use-parent-layout="false">
+                <minimum-size width="25" height="-1"/>
+                <preferred-size width="25" height="-1"/>
+                <maximum-size width="25" height="-1"/>
+              </grid>
+            </constraints>
+            <properties>
+              <background color="-855310"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <component id="cb5e3" class="javax.swing.JButton" binding="saveCaseButton" default-binding="true">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                    <minimum-size width="16" height="16"/>
+                    <preferred-size width="16" height="16"/>
+                    <maximum-size width="16" height="16"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <background color="-855310"/>
+                  <icon value="icons/save.png"/>
+                  <text value=""/>
+                  <toolTipText value="Save case"/>
+                </properties>
+              </component>
+              <component id="9ce5e" class="javax.swing.JButton" binding="envSelectButton">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                    <minimum-size width="16" height="16"/>
+                    <preferred-size width="16" height="16"/>
+                    <maximum-size width="16" height="16"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <background color="-855310"/>
+                  <icon value="icons/env.png"/>
+                  <text value=""/>
+                  <toolTipText value="Switch enviroment"/>
+                </properties>
+              </component>
+              <component id="d6f4a" class="javax.swing.JButton" binding="testButton">
+                <constraints>
+                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                    <minimum-size width="16" height="16"/>
+                    <preferred-size width="16" height="16"/>
+                    <maximum-size width="16" height="16"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <background color="-855310"/>
+                  <icon value="icons/T.png"/>
+                  <text value=""/>
+                  <toolTipText value="Test all case in this url"/>
+                </properties>
+              </component>
+              <component id="12664" class="javax.swing.JButton" binding="deleteButton">
+                <constraints>
+                  <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                    <minimum-size width="16" height="16"/>
+                    <preferred-size width="16" height="16"/>
+                    <maximum-size width="16" height="16"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <background color="-855310"/>
+                  <icon value="icons/delete.png"/>
+                  <text value=""/>
+                  <toolTipText value="Delete case(s)"/>
+                </properties>
+              </component>
+              <component id="6d19e" class="javax.swing.JButton" binding="modifyButton">
+                <constraints>
+                  <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                    <minimum-size width="16" height="16"/>
+                    <preferred-size width="16" height="16"/>
+                    <maximum-size width="16" height="16"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <background color="-855310"/>
+                  <icon value="icons/modify.png"/>
+                  <text value=""/>
+                  <toolTipText value="Modify case"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+        </children>
+      </grid>
+    </children>
+  </grid>
+</form>
