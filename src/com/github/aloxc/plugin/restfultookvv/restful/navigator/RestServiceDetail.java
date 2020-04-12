@@ -56,6 +56,7 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
     private JPanel casePane;
     private JButton saveCaseButton;
     private JPanel caseTitlePane;
+    private JPanel leftNavPane;
 
     public JTextArea requestParamsTextArea;
     public JTextArea requestBodyTextArea;

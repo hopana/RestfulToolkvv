@@ -217,6 +217,7 @@ Module level components 对应的是 Project 里的每个 Module.
     icon="/icons/donate.png">
       <add-to-group group-id="GoToTargetEx"/>
     </action>
+
     <!--code gen-->
     <!--
           <action class="com.github.aloxc.plugin.restfultookvv.restful.codegen.SpringBootGenerator" id="CodeGen"
