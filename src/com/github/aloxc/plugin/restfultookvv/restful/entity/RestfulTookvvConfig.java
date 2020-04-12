@@ -26,6 +26,11 @@ public class RestfulTookvvConfig implements Serializable {
     private List<NameAndValue> customConfigList;
 
     /**
+     * 环境
+     */
+    private List<Environment> environmentList;
+
+    /**
      * 是否启动https
      */
     private boolean https;

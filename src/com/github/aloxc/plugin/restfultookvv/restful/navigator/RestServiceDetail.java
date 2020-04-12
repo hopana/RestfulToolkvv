@@ -7,12 +7,15 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import com.intellij.ide.util.treeView.smartTree.TreeAction;
 import com.intellij.openapi.editor.colors.FontPreferences;
 import com.intellij.openapi.ide.CopyPasteManager;
 import com.intellij.openapi.progress.ProgressIndicator;
 import com.intellij.openapi.progress.ProgressManager;
 import com.intellij.openapi.progress.Task;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.ui.Messages;
+import com.intellij.openapi.util.IconLoader;
 import com.intellij.ui.components.JBPanel;
 import com.intellij.ui.components.JBScrollPane;
 import com.intellij.uiDesigner.core.GridConstraints;
@@ -21,15 +24,18 @@ import org.apache.commons.lang.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.*;
 import java.awt.*;
 import java.awt.datatransfer.StringSelection;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.util.List;
 import java.util.Map;
+
+import static javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED;
+import static javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED;
+import static javax.swing.tree.TreeSelectionModel.SINGLE_TREE_SELECTION;
 
 //import com.intellij.openapi.editor.colors.impl.AppEditorFontOptions;
 //import com.intellij.ui.components.JBPanelWithEmptyText;
@@ -57,6 +63,9 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
     private JPanel leftNavPane;
     private JButton envSelectButton;
     private JButton testButton;
+    private JScrollPane userCaseScroll;
+    private JButton deleteButton;
+    private JButton modifyButton;
 
     public JTextArea requestParamsTextArea;
     public JTextArea requestBodyTextArea;
@@ -168,9 +177,60 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
         DefaultTreeModel model = (DefaultTreeModel)userCaseTree.getModel();
         DefaultMutableTreeNode root = (DefaultMutableTreeNode)model.getRoot();
         root.removeAllChildren();
+
+        JPopupMenu menu=new JPopupMenu();		//创建菜单
+        JMenuItem deleteMenu=new JMenuItem("Delete");//创建菜单项(点击菜单项相当于点击一个按钮)
+        JMenuItem modifyMenu=new JMenuItem("Modify");//创建菜单项(点击菜单项相当于点击一个按钮)
+        menu.add(deleteMenu);
+        menu.add(modifyMenu);
+        deleteMenu.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                Messages.showMessageDialog("删除treeNode" ,"删除元素", IconLoader.getIcon("/icons/delete.png"));
+
+            }
+        });
+        modifyMenu.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                Messages.showMessageDialog("编辑treeNode" ,"编辑元素", IconLoader.getIcon("/icons/delete.png"));
+
+            }
+        });
+        userCaseTree.addTreeSelectionListener(new TreeSelectionListener(){
+            @Override
+            public void valueChanged(TreeSelectionEvent event) {
+                DefaultMutableTreeNode node = (DefaultMutableTreeNode) userCaseTree.getLastSelectedPathComponent();
+                int selectIndex = node.getParent().getIndex(node);
+                System.out.println("选中索引 " + selectIndex);
+
+                if(null!=node) {
+                    Object userObject = node.getUserObject();
+                    if (null != userObject) {
+                        if (userObject instanceof String) {
+                            String objectName = userObject.toString();
+
+                        }
+                    }
+                }
+            }
+        });
+//        userCaseTree.addMouseListener(new MouseAdapter() {
+//            public void mouseClicked(MouseEvent e) {
+//                super.mouseClicked(e);
+//                int x = e.getX();
+//                int y = e.getY();
+//                if(e.getButton()==MouseEvent.BUTTON3){
+//                    //menuItem.doClick(); //编程方式点击菜单项
+//                    TreePath pathForLocation = userCaseTree.getPathForLocation(x, y);//获取右键点击所在树节点路径
+//                    userCaseTree.setSelectionPath(pathForLocation);
+//                    menu.show(userCaseTree, x, y);
+//                }
+//            }
+//        });
         for(int i = 0;i<50;i++){
-            System.out.println(root.getChildCount());
-            root.add(new DefaultMutableTreeNode("节点\t" + i));
+            DefaultMutableTreeNode node = new DefaultMutableTreeNode("节点\t" + i);
+            root.add(node);
         }
         model.reload(root);
         userCaseTree.expandPath(new TreePath(root));
@@ -180,15 +240,25 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
         userCaseTree.setRootVisible(false);
         userCaseTree.setShowsRootHandles(false);
         userCaseTree.setRowHeight(22);
+        DefaultTreeSelectionModel singleSelectionModel = new DefaultTreeSelectionModel();
+        singleSelectionModel.setSelectionMode(SINGLE_TREE_SELECTION);
+        userCaseTree.setSelectionModel(singleSelectionModel);
         DefaultTreeCellRenderer render=(DefaultTreeCellRenderer)(userCaseTree.getCellRenderer());
         render.setIcon(null);
         render.setLeafIcon(null);
         render.setOpenIcon(null);
         render.setClosedIcon(null);
 
-
-
-        midPane.add(userCaseTree,
+        ScrollPaneLayout userCaseScrollLayoutManager = new ScrollPaneLayout();
+        userCaseScrollLayoutManager.setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        userCaseScrollLayoutManager.setVerticalScrollBarPolicy(VERTICAL_SCROLLBAR_AS_NEEDED);
+        userCaseScroll.setLayout(userCaseScrollLayoutManager);
+        userCaseScroll.getViewport().add(userCaseTree,
+                new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
+                        GridConstraints.SIZEPOLICY_FIXED,
+                        GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
+                        new Dimension(250,-1), new Dimension(250,-1), new Dimension(250,-1)));
+        midPane.add(userCaseScroll,
                 new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
                         GridConstraints.SIZEPOLICY_FIXED,
                         GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
@@ -218,6 +288,56 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
         testButton.setRolloverEnabled(true);
         testButton.setFocusPainted(true);
 
+        deleteButton.setBorder(BorderFactory.createRaisedBevelBorder());
+        deleteButton.setBorderPainted(false);
+        deleteButton.setOpaque(false);
+        deleteButton.setRolloverEnabled(true);
+        deleteButton.setFocusPainted(true);
+
+        modifyButton.setBorder(BorderFactory.createRaisedBevelBorder());
+        modifyButton.setBorderPainted(false);
+        modifyButton.setOpaque(false);
+        modifyButton.setRolloverEnabled(true);
+        modifyButton.setFocusPainted(true);
+
+        modifyButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                Messages.showMessageDialog("点击了编辑按钮" ,"编辑元素", IconLoader.getIcon("/icons/modify.png"));
+            }
+        });
+
+        deleteButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                Messages.showMessageDialog("点击了删除按钮" ,"删除元素", IconLoader.getIcon("/icons/delete.png"));
+            }
+        });
+
+        envSelectButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+//                Messages.showMessageDialog("点击了环境切换按钮" ,"环境切换", IconLoader.getIcon("/icons/env.png"));
+                int x = e.getX();
+                int y = e.getY();
+                JPopupMenu menu=new JPopupMenu();		//创建菜单
+                for(int i = 0;i<5;i++){
+                    JMenuItem item=new JMenuItem("env " + i);//创建菜单项(点击菜单项相当于点击一个按钮)
+                    menu.add(item);
+                    item.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            JMenuItem item = (JMenuItem)e.getSource();
+                            Messages.showMessageDialog("点击了环境切换按钮111" + item.getText() ,"环境切换", IconLoader.getIcon("/icons/env.png"));
+                        }
+                    });
+                }
+                menu.show(envSelectButton,x,y);
+            }
+        });
         leftNavPane.add(saveCaseButton,
                 new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
                         GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED,
@@ -228,6 +348,16 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
                         new Dimension(16,16), new Dimension(16,16),  new Dimension(16,16)));
 
         leftNavPane.add(testButton,
+                new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
+                        GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED,
+                        new Dimension(16,16), new Dimension(16,16),  new Dimension(16,16)));
+
+        leftNavPane.add(modifyButton,
+                new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
+                        GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED,
+                        new Dimension(16,16), new Dimension(16,16),  new Dimension(16,16)));
+
+        leftNavPane.add(deleteButton,
                 new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
                         GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED,
                         new Dimension(16,16), new Dimension(16,16),  new Dimension(16,16)));
@@ -434,7 +564,7 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
 
     public void addRequestTabbedPane(String title, JTextArea jTextArea) {
 
-        JScrollPane jbScrollPane = new JBScrollPane(jTextArea, JBScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JBScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        JScrollPane jbScrollPane = new JBScrollPane(jTextArea, VERTICAL_SCROLLBAR_AS_NEEDED, HORIZONTAL_SCROLLBAR_AS_NEEDED);
         jTextArea.addKeyListener(new TextAreaKeyAdapter(jTextArea));
 
         rightTabbedPane.addTab(title, jbScrollPane) ;
