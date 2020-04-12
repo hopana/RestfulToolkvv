@@ -200,16 +200,19 @@ Module level components 对应的是 Project 里的每个 Module.
       <keyboard-shortcut keymap="$default" first-keystroke="ctrl BACK_SLASH" />
       <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt N"/>
     </action>
+    <!--    testAll -->
+    <action id="Toolkit.TestAllService" class="com.github.aloxc.plugin.restfultookvv.restful.navigation.action.TestAllAction"
+            text="_Test all case in project " description="Go to Service"
+            icon="/icons/test.png">
+    </action>
 <!--    全局參數設置按鈕 -->
     <action id="Toolkit.GlobalsettingService" class="com.github.aloxc.plugin.restfultookvv.restful.navigation.action.GlobalParameterSettingAction"
-            icon="/icons/setting.png">
-      <add-to-group group-id="GoToTargetEx"/>
+            icon="/icons/setting.png" text="Global setting">
     </action>
     <!--    关于按钮 -->
     <action id="Toolkit.AboutService" class="com.github.aloxc.plugin.restfultookvv.restful.navigation.action.AboutAction"
             text="_About RestfulTookvv!" description="Go to Service"
             icon="/icons/about.png">
-      <add-to-group group-id="GoToTargetEx"/>
     </action>
     <!--    捐助 -->
     <action id="Toolkit.DonateService" class="com.github.aloxc.plugin.restfultookvv.restful.navigation.action.DonateAction"
@@ -217,6 +220,7 @@ Module level components 对应的是 Project 里的每个 Module.
     icon="/icons/donate.png">
       <add-to-group group-id="GoToTargetEx"/>
     </action>
+
     <!--code gen-->
     <!--
           <action class="com.github.aloxc.plugin.restfultookvv.restful.codegen.SpringBootGenerator" id="CodeGen"
@@ -241,6 +245,7 @@ Module level components 对应的是 Project 里的每个 Module.
     <group id="Toolkit.NavigatorActionsToolbar">
       <reference id="Toolkit.RefreshServices"/>
       <reference id="Toolkit.SearchService"/>
+      <reference id="Toolkit.TestAllService"/>
       <separator/>
 <!--      全局參數設置按鈕 加到本插件的上部导航-->
       <reference id="Toolkit.ImportPostmanServices"/>

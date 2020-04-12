@@ -13,7 +13,6 @@ import com.intellij.openapi.progress.ProgressIndicator;
 import com.intellij.openapi.progress.ProgressManager;
 import com.intellij.openapi.progress.Task;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.util.IconLoader;
 import com.intellij.ui.components.JBPanel;
 import com.intellij.ui.components.JBScrollPane;
 import com.intellij.uiDesigner.core.GridConstraints;
@@ -49,14 +48,15 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
     public JPanel urlPanel;
     public JTextField methodField;
     public JButton sendButton;
-    public JTabbedPane requestTabbedPane;
+    public JTabbedPane rightTabbedPane;
     private JTree userCasePane;
     private JPanel requestPane;
     private JLabel caseTextPane;
-    private JPanel casePane;
+    private JPanel midPane;
     private JButton saveCaseButton;
-    private JPanel caseTitlePane;
     private JPanel leftNavPane;
+    private JButton envSelectButton;
+    private JButton testButton;
 
     public JTextArea requestParamsTextArea;
     public JTextArea requestBodyTextArea;
@@ -107,22 +107,126 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
     }
 
     private void initUI() {
-//        this#urlPanel
-//        urlField = new JBTextField();
-//        urlField.setColumns(20);
+        GridLayoutManager rightLayoutManager = new GridLayoutManager(1, 3);
+        rightLayoutManager.setHGap(1);
+        rightLayoutManager.setVGap(1);
+        requestPane = new JBPanel<>();
+        requestPane.setLayout(rightLayoutManager);
+
+        initRequestPanel();
+        initUserCaseLeftPanel();
+        initUserCaseMidPanel();
+        initUserCaseRightPanel();
+        initUserCasePanel();
+
+    }
+
+    private void initUserCasePanel() {
+        requestPane.add(leftNavPane,
+                new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
+                        GridConstraints.SIZEPOLICY_FIXED,
+                        GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
+                        new Dimension(18,-1), new Dimension(18,-1), new Dimension(18,-1)));
+
+        requestPane.add(midPane,
+                new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
+                        GridConstraints.SIZEPOLICY_FIXED,
+                        GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
+                        new Dimension(250,-1), new Dimension(250,-1), new Dimension(250,-1)));
+        requestPane.add(rightTabbedPane,
+                new GridConstraints(0, 2, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
+                        GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
+                        GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
+                        new Dimension(-1,-1), new Dimension(-1,-1), new Dimension(-1,-1)));
+        this.add(requestPane,
+                new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
+                        GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
+                        GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
+                        new Dimension(-1,-1), new Dimension(-1,-1), new Dimension(-1,-1)));
+    }
+
+    private void initUserCaseRightPanel() {
+
+    }
+
+    private void initUserCaseMidPanel() {
+        GridLayoutManager midPaneLayoutManager = new GridLayoutManager(2, 1);
+        midPaneLayoutManager.setHGap(1);
+        midPaneLayoutManager.setVGap(1);
+        midPaneLayoutManager.setMargin(new Insets(0,5,0,0));
+        midPane = new JBPanel<>();
+        midPane.setLayout(midPaneLayoutManager);
+        midPane.setMaximumSize(new Dimension(250,26));
+        midPane.setMinimumSize(new Dimension(250,26));
+        midPane.setPreferredSize(new Dimension(250,26));
+
+        midPane.add(caseTextPane,
+                new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
+                        GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED,
+                        new Dimension(250,28), new Dimension(250,28),  new Dimension(250,28)));
+
+        userCasePane.setRootVisible(false);
+        userCasePane.setShowsRootHandles(false);
+        userCasePane.setRowHeight(22);
+        DefaultTreeCellRenderer render=(DefaultTreeCellRenderer)(userCasePane.getCellRenderer());
+        render.setIcon(null);
+        render.setLeafIcon(null);
+        render.setOpenIcon(null);
+        render.setClosedIcon(null);
+
+        midPane.add(userCasePane,
+                new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
+                        GridConstraints.SIZEPOLICY_FIXED,
+                        GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
+                        new Dimension(250,-1), new Dimension(250,-1), new Dimension(250,-1)));
+
+    }
+
+    private void initUserCaseLeftPanel() {
+        LayoutManager flowLayoutManager = new FlowLayout();
+        leftNavPane = new JBPanel<>();
+        leftNavPane.setLayout(flowLayoutManager);
+        saveCaseButton.setBorder(BorderFactory.createRaisedBevelBorder());
+        saveCaseButton.setBorderPainted(false);
+        saveCaseButton.setOpaque(false);
+        saveCaseButton.setRolloverEnabled(true);
+        envSelectButton.setFocusPainted(true);
+
+        envSelectButton.setBorder(BorderFactory.createRaisedBevelBorder());
+        envSelectButton.setBorderPainted(false);
+        envSelectButton.setOpaque(false);
+        envSelectButton.setRolloverEnabled(true);
+        envSelectButton.setFocusPainted(true);
+
+        testButton.setBorder(BorderFactory.createRaisedBevelBorder());
+        testButton.setBorderPainted(false);
+        testButton.setOpaque(false);
+        testButton.setRolloverEnabled(true);
+        testButton.setFocusPainted(true);
+
+        leftNavPane.add(saveCaseButton,
+                new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
+                        GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED,
+                        new Dimension(16,16), new Dimension(16,16),  new Dimension(16,16)));
+        leftNavPane.add(envSelectButton,
+                new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
+                        GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED,
+                        new Dimension(16,16), new Dimension(16,16),  new Dimension(16,16)));
+
+        leftNavPane.add(testButton,
+                new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
+                        GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED,
+                        new Dimension(16,16), new Dimension(16,16),  new Dimension(16,16)));
+
+    }
+
+    private void initRequestPanel() {
         urlField.setAutoscrolls(true);
-//        urlPanel.setLayout(new HorizontalLayout());
-
-//        urlPanel = new JBPanelWithEmptyText();
         urlPanel = new JBPanel();
-
         GridLayoutManager mgr = new GridLayoutManager(1, 3);
-//        GridLayoutManager mgr = new GridLayoutManager(1, 2);
         mgr.setHGap(1);
         mgr.setVGap(1);
         urlPanel.setLayout(mgr);
-//        urlPanel.setLayout(new HorizontalLayout());
-
         urlPanel.add(methodField,
                 new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
                         GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED,
@@ -144,76 +248,6 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
                 new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH,
                         GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED,
                         null, null, null));
-        GridLayoutManager requestLayoutManager = new GridLayoutManager(1, 2);
-        requestLayoutManager.setHGap(1);
-        requestLayoutManager.setVGap(1);
-        requestPane = new JBPanel<>();
-        requestPane.setLayout(requestLayoutManager);
-
-
-        GridLayoutManager casePaneLayoutManager = new GridLayoutManager(2, 1);
-        casePaneLayoutManager.setHGap(1);
-        casePaneLayoutManager.setVGap(1);
-        casePaneLayoutManager.setMargin(new Insets(0,5,0,0));
-        casePane = new JBPanel<>();
-        casePane.setLayout(casePaneLayoutManager);
-        casePane.setMaximumSize(new Dimension(250,26));
-        casePane.setMinimumSize(new Dimension(250,26));
-        casePane.setPreferredSize(new Dimension(250,26));
-
-        GridLayoutManager caseTitleLayoutManager = new GridLayoutManager(1, 2);
-        caseTitleLayoutManager.setHGap(1);
-        caseTitleLayoutManager.setVGap(1);
-        caseTitleLayoutManager.setMargin(new Insets(0,10,0,0));
-        caseTitlePane = new JBPanel<>();
-
-        caseTitlePane.add(caseTextPane,
-                new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
-                        GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED,
-                        new Dimension(50,28), new Dimension(50,28),  new Dimension(50,28)));
-
-        caseTitlePane.add(saveCaseButton,
-                new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
-                        GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED,
-                        new Dimension(180,28), new Dimension(180,28),  new Dimension(180,28)));
-
-        casePane.add(caseTitlePane,
-                new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
-                        GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED,
-                        new Dimension(250,28), new Dimension(250,28),  new Dimension(250,28)));
-
-        userCasePane.setRootVisible(false);
-        userCasePane.setShowsRootHandles(false);
-        userCasePane.setRowHeight(22);
-        DefaultTreeCellRenderer render=(DefaultTreeCellRenderer)(userCasePane.getCellRenderer());
-        render.setIcon(null);
-        render.setLeafIcon(null);
-        render.setOpenIcon(null);
-        render.setClosedIcon(null);
-
-        casePane.add(userCasePane,
-                new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
-                        GridConstraints.SIZEPOLICY_FIXED,
-                        GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
-                        new Dimension(250,-1), new Dimension(250,-1), new Dimension(250,-1)));
-
-        requestPane.add(casePane,
-                new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
-                        GridConstraints.SIZEPOLICY_FIXED,
-                        GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
-                        new Dimension(250,-1), new Dimension(250,-1), new Dimension(250,-1)));
-
-
-        requestPane.add(requestTabbedPane,
-                new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
-                        GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
-                        GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
-                        new Dimension(-1,-1), new Dimension(-1,-1), new Dimension(-1,-1)));
-        this.add(requestPane,
-                new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
-                        GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
-                        GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
-                        new Dimension(-1,-1), new Dimension(-1,-1), new Dimension(-1,-1)));
     }
 
     private void bindSendButtonActionListener() {
@@ -277,7 +311,7 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
     }
 
     private void bindUrlTextActionListener() {
-        requestTabbedPane.addMouseListener(new MouseAdapter() {
+        rightTabbedPane.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
@@ -389,9 +423,9 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
         JScrollPane jbScrollPane = new JBScrollPane(jTextArea, JBScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JBScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         jTextArea.addKeyListener(new TextAreaKeyAdapter(jTextArea));
 
-        requestTabbedPane.addTab(title, jbScrollPane) ;
+        rightTabbedPane.addTab(title, jbScrollPane) ;
 
-        requestTabbedPane.setSelectedComponent(jbScrollPane) ;//.setSelectedIndex(requestTabbedPane.getTabCount() - 1);
+        rightTabbedPane.setSelectedComponent(jbScrollPane) ;//.setSelectedIndex(rightTabbedPane.getTabCount() - 1);
     }
 
     /*添加 Response Tab*/
@@ -405,14 +439,14 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
         else {
             Component componentAt = null;
             responseTextArea.setText(text);
-            int tabCount = requestTabbedPane.getTabCount();
+            int tabCount = rightTabbedPane.getTabCount();
             for (int i = 0; i < tabCount; i++) {
-                if (requestTabbedPane.getTitleAt(i).equals(responseTabTitle)) {
-                    componentAt = requestTabbedPane.getComponentAt(i);
-                    requestTabbedPane.addTab(responseTabTitle,componentAt);
-                    requestTabbedPane.setSelectedComponent(componentAt);
+                if (rightTabbedPane.getTitleAt(i).equals(responseTabTitle)) {
+                    componentAt = rightTabbedPane.getComponentAt(i);
+                    rightTabbedPane.addTab(responseTabTitle,componentAt);
+                    rightTabbedPane.setSelectedComponent(componentAt);
                     break;
-//                    Component component = requestTabbedPane.getComponent(i);
+//                    Component component = rightTabbedPane.getComponent(i);
                 }
             }
             if (componentAt == null) {
@@ -495,7 +529,7 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
 
 
     public void resetRequestTabbedPane() {
-        this.requestTabbedPane.removeAll();
+        this.rightTabbedPane.removeAll();
         resetTextComponent(requestParamsTextArea);
         resetTextComponent(requestBodyTextArea);
         resetTextComponent(responseTextArea);
