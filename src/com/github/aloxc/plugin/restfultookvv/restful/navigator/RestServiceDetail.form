@@ -80,12 +80,14 @@
             </properties>
             <border type="none"/>
             <children>
-              <component id="1ac25" class="javax.swing.JTree" binding="userCasePane">
+              <component id="1ac25" class="javax.swing.JTree" binding="userCaseTree">
                 <constraints>
-                  <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false"/>
+                  <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="7" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <background color="-1"/>
+                  <rootVisible value="false"/>
+                  <showsRootHandles value="false"/>
                 </properties>
               </component>
               <component id="fa029" class="javax.swing.JLabel" binding="caseTextPane">

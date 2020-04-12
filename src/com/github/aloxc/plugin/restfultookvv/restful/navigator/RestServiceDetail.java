@@ -21,7 +21,7 @@ import org.apache.commons.lang.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
-import javax.swing.tree.DefaultTreeCellRenderer;
+import javax.swing.tree.*;
 import java.awt.*;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyAdapter;
@@ -49,7 +49,7 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
     public JTextField methodField;
     public JButton sendButton;
     public JTabbedPane rightTabbedPane;
-    private JTree userCasePane;
+    private JTree userCaseTree;
     private JPanel requestPane;
     private JLabel caseTextPane;
     private JPanel midPane;
@@ -165,16 +165,30 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
                         GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED,
                         new Dimension(250,28), new Dimension(250,28),  new Dimension(250,28)));
 
-        userCasePane.setRootVisible(false);
-        userCasePane.setShowsRootHandles(false);
-        userCasePane.setRowHeight(22);
-        DefaultTreeCellRenderer render=(DefaultTreeCellRenderer)(userCasePane.getCellRenderer());
+        DefaultTreeModel model = (DefaultTreeModel)userCaseTree.getModel();
+        DefaultMutableTreeNode root = (DefaultMutableTreeNode)model.getRoot();
+        root.removeAllChildren();
+        for(int i = 0;i<50;i++){
+            System.out.println(root.getChildCount());
+            root.add(new DefaultMutableTreeNode("节点\t" + i));
+        }
+        model.reload(root);
+        userCaseTree.expandPath(new TreePath(root));
+        userCaseTree.updateUI();
+
+        //不显示根节点
+        userCaseTree.setRootVisible(false);
+        userCaseTree.setShowsRootHandles(false);
+        userCaseTree.setRowHeight(22);
+        DefaultTreeCellRenderer render=(DefaultTreeCellRenderer)(userCaseTree.getCellRenderer());
         render.setIcon(null);
         render.setLeafIcon(null);
         render.setOpenIcon(null);
         render.setClosedIcon(null);
 
-        midPane.add(userCasePane,
+
+
+        midPane.add(userCaseTree,
                 new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
                         GridConstraints.SIZEPOLICY_FIXED,
                         GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
