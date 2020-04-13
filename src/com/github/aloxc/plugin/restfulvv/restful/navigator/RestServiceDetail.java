@@ -143,7 +143,6 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/ {
         this.searchKey.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
-                System.out.println("code1 = " + e.getKeyCode());
             }
 
             @Override
@@ -152,11 +151,10 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/ {
 
             @Override
             public void keyReleased(KeyEvent e) {
-                System.out.println("code = " + e.getKeyCode());
                 //回车直接搜索
                 if (e.getKeyCode() == 10) {
                     try {
-                        if(searchKey != null) {
+                        if(searchKey != null && responseTextArea != null) {
                             responseTextArea.search(searchKey);
                         }
                     } catch (BadLocationException var3) {
@@ -173,7 +171,7 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/ {
     private void bindSearchActionListener() {
         this.searchButton.addActionListener(event -> {
             try {
-                if(searchKey != null) {
+                if(searchKey != null && responseTextArea != null) {
                     responseTextArea.search(searchKey);
                 }
             } catch (BadLocationException e) {
