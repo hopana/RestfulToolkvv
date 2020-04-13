@@ -63,6 +63,12 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
     private JButton deleteButton;
     private JButton modifyButton;
     private JPanel rootPanel;
+    private JPanel rightPane;
+    private JPanel searchPane;
+    private JCheckBox keyCheckBox;
+    private JCheckBox valueCheckBox;
+    private JTextField searchKey;
+    private JButton searchButton;
 
     public JTextArea requestParamsTextArea;
     public JTextArea requestBodyTextArea;
@@ -139,11 +145,13 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
                         GridConstraints.SIZEPOLICY_FIXED,
                         GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
                         new Dimension(250,-1), new Dimension(250,-1), new Dimension(250,-1)));
-        requestPane.add(rightTabbedPane,
+
+        requestPane.add(rightPane,
                 new GridConstraints(0, 2, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
                         GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
                         GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
                         new Dimension(-1,-1), new Dimension(-1,-1), new Dimension(-1,-1)));
+
         this.add(requestPane,
                 new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
                         GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
@@ -152,6 +160,66 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
     }
 
     private void initUserCaseRightPanel() {
+        GridLayoutManager rightPaneLayoutManager = new GridLayoutManager(2, 1);
+        rightPaneLayoutManager.setHGap(1);
+        rightPaneLayoutManager.setVGap(1);
+        rightPaneLayoutManager.setMargin(new Insets(0,5,0,0));
+        rightPane = new JBPanel<>();
+        rightPane.setLayout(rightPaneLayoutManager);
+//        rightPane.setMaximumSize(new Dimension(-1,26));
+//        rightPane.setMinimumSize(new Dimension(250,26));
+//        rightPane.setPreferredSize(new Dimension(250,26));
+
+        rightPane.add(rightTabbedPane,
+                new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
+                        GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
+                        GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
+                        new Dimension(-1,-1), new Dimension(-1,-1), new Dimension(-1,-1)));
+
+
+        searchPane = new JBPanel<>();
+//        searchPane.setMaximumSize(new Dimension(-1,28));
+//        searchPane.setMinimumSize(new Dimension(-1,28));
+//        searchPane.setPreferredSize(new Dimension(-1,28));
+
+        keyCheckBox.setAutoscrolls(true);
+        valueCheckBox.setAutoscrolls(true);
+        GridLayoutManager searchLayoutManager = new GridLayoutManager(1, 4);
+        searchLayoutManager.setHGap(1);
+        searchLayoutManager.setVGap(1);
+        searchPane.setLayout(searchLayoutManager);
+        GridConstraints test = new GridConstraints();
+        searchPane.add(keyCheckBox,
+                new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
+                        GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED,
+                        null, null, null));
+        searchPane.add(valueCheckBox,
+                new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
+                        GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED,
+                        null, null, null));
+        searchPane.add(searchKey,
+                new GridConstraints(0, 2, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
+                        GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
+                        GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
+                        null, null, null));
+//// 是否必要保留？
+        searchPane.add(searchButton,
+                new GridConstraints(0, 3, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
+                        GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED,
+                        null, null, null));
+//        this.setBorder(BorderFactory.createEmptyBorder());
+//        this.setLayout(new GridLayoutManager(2, 1));
+//
+//        this.add(urlPanel,
+//                new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH,
+//                        GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED,
+//                        null, null, null));
+//
+//
+        rightPane.add(searchPane,
+                new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
+                        GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED,
+                        new Dimension(-1,-1), new Dimension(-1,-1),  new Dimension(-1,-1)));
 
     }
 
@@ -212,19 +280,6 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
                 }
             }
         });
-//        userCaseTree.addMouseListener(new MouseAdapter() {
-//            public void mouseClicked(MouseEvent e) {
-//                super.mouseClicked(e);
-//                int x = e.getX();
-//                int y = e.getY();
-//                if(e.getButton()==MouseEvent.BUTTON3){
-//                    //menuItem.doClick(); //编程方式点击菜单项
-//                    TreePath pathForLocation = userCaseTree.getPathForLocation(x, y);//获取右键点击所在树节点路径
-//                    userCaseTree.setSelectionPath(pathForLocation);
-//                    menu.show(userCaseTree, x, y);
-//                }
-//            }
-//        });
         for(int i = 0;i<50;i++){
             DefaultMutableTreeNode node = new DefaultMutableTreeNode("节点\t" + i);
             root.add(node);

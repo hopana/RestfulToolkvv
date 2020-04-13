@@ -1,7 +1,7 @@
 package com.github.aloxc.plugin.restfulvv.restful.navigator;
 
 
-import com.github.aloxc.plugin.restfulvv.restful.common.ToolkitIcons;
+import com.github.aloxc.plugin.restfulvv.restful.common.Consts;
 import com.github.aloxc.plugin.restfulvv.utils.ToolkitUtil;
 import com.intellij.ide.util.treeView.TreeState;
 import com.intellij.openapi.application.ApplicationManager;
@@ -114,7 +114,7 @@ public class RestServicesNavigator extends AbstractProjectComponent implements P
         initTree();
 
         myToolWindow = (ToolWindowEx)manager.registerToolWindow(TOOL_WINDOW_ID, false, ToolWindowAnchor.RIGHT, myProject, true);
-        myToolWindow.setIcon(ToolkitIcons.SERVICE);
+        myToolWindow.setIcon(Consts.SERVICE);
 
         JPanel panel = new RestServicesNavigatorPanel(myProject, myTree);
         final ContentFactory contentFactory = ServiceManager.getService(ContentFactory.class);

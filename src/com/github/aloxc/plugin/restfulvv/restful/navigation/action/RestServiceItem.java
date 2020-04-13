@@ -1,6 +1,6 @@
 package com.github.aloxc.plugin.restfulvv.restful.navigation.action;
 
-import com.github.aloxc.plugin.restfulvv.restful.common.ToolkitIcons;
+import com.github.aloxc.plugin.restfulvv.restful.common.Consts;
 import com.github.aloxc.plugin.restfulvv.restful.method.HttpMethod;
 import com.github.aloxc.plugin.restfulvv.restful.method.action.ModuleHelper;
 import com.intellij.navigation.ItemPresentation;
@@ -124,7 +124,7 @@ public class RestServiceItem implements NavigationItem {
         @Override
         public Icon getIcon(boolean unused) {
 //            System.out.println(unused + "  " + this.getPresentableText());
-            return ToolkitIcons.METHOD.get(method);
+            return Consts.METHOD.get(method);
         }
     }
 

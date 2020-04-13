@@ -2,7 +2,7 @@ package com.github.aloxc.plugin.restfulvv.restful.navigator;
 
 
 import com.github.aloxc.plugin.restfulvv.restful.common.PsiMethodHelper;
-import com.github.aloxc.plugin.restfulvv.restful.common.ToolkitIcons;
+import com.github.aloxc.plugin.restfulvv.restful.common.Consts;
 import com.github.aloxc.plugin.restfulvv.restful.method.HttpMethod;
 import com.github.aloxc.plugin.restfulvv.restful.navigation.action.RestServiceItem;
 import com.intellij.lang.java.JavaLanguage;
@@ -257,8 +257,8 @@ public class RestServiceStructure  extends SimpleTreeStructure {
             super(parent);
             myProject = project;
 
-            getTemplatePresentation().setIcon(ToolkitIcons.MODULE);
-            setIcon(ToolkitIcons.MODULE); //兼容 IDEA 2016
+            getTemplatePresentation().setIcon(Consts.MODULE);
+            setIcon(Consts.MODULE); //兼容 IDEA 2016
 
             updateServiceNodes(project.serviceItems);
         }
@@ -324,7 +324,7 @@ public class RestServiceStructure  extends SimpleTreeStructure {
             super(parent);
             myServiceItem = serviceItem;
 
-            Icon icon = ToolkitIcons.METHOD.get(serviceItem.getMethod());
+            Icon icon = Consts.METHOD.get(serviceItem.getMethod());
             if (icon != null) {
                 getTemplatePresentation().setIcon(icon);
                 setIcon(icon); //兼容 IDEA 2016
