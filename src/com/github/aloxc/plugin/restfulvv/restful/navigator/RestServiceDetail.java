@@ -1,6 +1,7 @@
 package com.github.aloxc.plugin.restfulvv.restful.navigator;
 
 import com.github.aloxc.plugin.restfulvv.restful.common.RequestHelper;
+import com.github.aloxc.plugin.restfulvv.restful.component.VTextPane;
 import com.github.aloxc.plugin.restfulvv.restful.highlight.JTextAreaHighlight;
 import com.github.aloxc.plugin.restfulvv.utils.JsonUtils;
 import com.github.aloxc.plugin.restfulvv.utils.ToolkitUtil;
@@ -26,6 +27,7 @@ import org.jetbrains.annotations.NotNull;
 import javax.swing.*;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
+import javax.swing.text.BadLocationException;
 import javax.swing.tree.*;
 import java.awt.*;
 import java.awt.datatransfer.StringSelection;
@@ -70,9 +72,9 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
     private JTextField searchKey;
     private JButton searchButton;
 
-    public JTextArea requestParamsTextArea;
-    public JTextArea requestBodyTextArea;
-    public JTextArea responseTextArea;
+    public VTextPane requestParamsTextArea;
+    public VTextPane requestBodyTextArea;
+    public VTextPane responseTextArea;
 
 /*    public static RestServiceDetail getInstance() {
         if (restServiceDetail == null) {
@@ -103,12 +105,55 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
         bindSendButtonActionListener();
 
         bindUrlTextActionListener();
+
+        bindSearchActionListener();
+
+        bindSearchKeyListener();
+    }
+
+    /**
+     * 搜索输入框按键 监听器
+     */
+    private void bindSearchKeyListener() {
+        this.searchKey.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+            }
+            @Override
+            public void keyPressed(KeyEvent e) {
+            }
+            @Override
+            public void keyReleased(KeyEvent e) {
+                //回车直接搜索
+                if (e.getKeyCode() == 13) {
+                    try {
+                        responseTextArea.search((JTextArea)e.getSource());
+                    } catch (BadLocationException var3) {
+                        var3.printStackTrace();
+                    }
+                }
+            }
+        });
+    }
+
+    /**
+     * 搜索按钮动作监听
+     */
+    private void bindSearchActionListener() {
+        this.searchButton.addActionListener(event-> {
+            try {
+                responseTextArea.search((JTextArea)event.getSource());
+            } catch (BadLocationException e) {
+                System.err.println("搜索按钮动作监听异常");
+                e.printStackTrace();
+            }
+        });
     }
 
     public void initTab() {
 //        jTextArea.setAutoscrolls(true);
         String jsonFormat = "Try press 'Ctrl(Cmd) Enter'";
-        JTextArea textArea = createTextArea("{'key':'value'}");
+        VTextPane textArea = createTextArea("{'key':'value'}");
 
         addRequestTabbedPane(jsonFormat, textArea);
     }
@@ -592,7 +637,6 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
 //            addRequestTabbedPane("RequestParams", requestParamsTextArea);
         }
 
-        highlightTextAreaData(requestParamsTextArea);
 
         addRequestTabbedPane("RequestParam(s)", requestParamsTextArea);
 
@@ -608,19 +652,18 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
             requestBodyTextArea.setText(text);
         }
 
-        highlightTextAreaData(requestBodyTextArea);
 
         addRequestTabbedPane(reqBodyTitle, this.requestBodyTextArea);
     }
 
 
-    public void addRequestTabbedPane(String title, JTextArea jTextArea) {
+    public void addRequestTabbedPane(String title, VTextPane jTextArea) {
 
         JScrollPane jbScrollPane = new JBScrollPane(jTextArea, VERTICAL_SCROLLBAR_AS_NEEDED, HORIZONTAL_SCROLLBAR_AS_NEEDED);
         jTextArea.addKeyListener(new TextAreaKeyAdapter(jTextArea));
 
         rightTabbedPane.addTab(title, jbScrollPane) ;
-
+        jTextArea.format();
         rightTabbedPane.setSelectedComponent(jbScrollPane) ;//.setSelectedIndex(rightTabbedPane.getTabCount() - 1);
     }
 
@@ -654,36 +697,33 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
     }
 
     @NotNull
-    public JTextArea createTextArea(String text) {
+    public VTextPane createTextArea(String text) {
         Font font = getEffectiveFont();
 
-        // TODO : 适当时候替换，展现效果更好
-//        JTextPane editor = new JTextPane();
-        JTextArea jTextArea = new JTextArea(text);
-        jTextArea.setFont(font);
+        VTextPane textArea = new VTextPane();
+        textArea.setShowLineNumber(true);
+        textArea.setText(text);
+//        JTextArea textArea = new JTextArea(text);
+        textArea.setFont(font);
 
-        jTextArea.addKeyListener(new KeyAdapter() {
+        textArea.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
-                String text = jTextArea.getText();
+                String text = textArea.getText();
                 getEffectiveFont(text);
-                highlightTextAreaData(jTextArea);
             }
         });
 
-        jTextArea.addMouseListener(new MouseAdapter() {
+        textArea.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() > 1) {
                     // copy text to parse
-                    CopyPasteManager.getInstance().setContents(new StringSelection(jTextArea.getText()));
+                    CopyPasteManager.getInstance().setContents(new StringSelection(textArea.getText()));
                 }
             }
         });
-
-        highlightTextAreaData(jTextArea);
-
-        return jTextArea;
+        return textArea;
     }
 
     @NotNull  // editor.xml
@@ -731,7 +771,7 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
         resetTextComponent(responseTextArea);
     }
 
-    private void resetTextComponent(JTextArea textComponent) {
+    private void resetTextComponent(VTextPane textComponent) {
         if( textComponent != null && StringUtils.isNotBlank(textComponent.getText())) {
             textComponent.setText("");
         }
@@ -746,9 +786,9 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
     }
 
     private class TextAreaKeyAdapter extends KeyAdapter {
-        private final JTextArea jTextArea;
+        private final VTextPane jTextArea;
 
-        public TextAreaKeyAdapter(JTextArea jTextArea) {
+        public TextAreaKeyAdapter(VTextPane jTextArea) {
             this.jTextArea = jTextArea;
         }
 
@@ -775,10 +815,5 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
         }
     }
 
-
-    /* 高亮 */
-    public void highlightTextAreaData(JTextArea jTextArea) {
-//        JTextAreaHighlight.highlightTextAreaData(jTextArea);
-    }
 
 }

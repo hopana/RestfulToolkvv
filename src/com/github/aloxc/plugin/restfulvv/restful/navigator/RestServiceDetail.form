@@ -47,7 +47,7 @@
               <enabled value="true"/>
               <foreground color="-21246"/>
               <horizontalTextPosition value="0"/>
-              <text value="Send.."/>
+              <text value="Send"/>
               <verticalAlignment value="0"/>
               <verticalTextPosition value="0"/>
             </properties>
@@ -211,7 +211,9 @@
                 <constraints>
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="8" fill="2" indent="0" use-parent-layout="false"/>
                 </constraints>
-                <properties/>
+                <properties>
+                  <background color="-855310"/>
+                </properties>
                 <border type="none"/>
                 <children/>
               </tabbedpane>

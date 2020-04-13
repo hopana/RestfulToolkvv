@@ -3,10 +3,7 @@ package com.github.aloxc.plugin.restfulvv.test;
 
 import com.github.aloxc.plugin.restfulvv.restful.component.VTextPane;
 
-import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.text.*;
 
 public class Test1
 {
@@ -15,13 +12,11 @@ public class Test1
         JFrame frame = new JFrame();
         VTextPane jTextPane = new VTextPane();
         jTextPane.setShowLineNumber(true);
-        jTextPane.setContentType("application/json;charset=UTF-8");
-//        jTextPane.setContentType("text/html; charset=EUC-JP");
         jTextPane.setText("<html><body bgcolor=\"#F6FBFB\">");
         String text = "大家好：" + "<a href=\"#\" onclick=\"javascript:alert(0)\" ><font color=\"#0000ff\"><strong>"
                 + "都程序惹的祸" + "</strong></font></a><br>";
         for (int i = 0; i < 50; i++) {
-            text += "<br>aaaa" + i;
+            text += "\naaaa" + i;
         }
         text += "<body></html>";
         jTextPane.setText(text);
