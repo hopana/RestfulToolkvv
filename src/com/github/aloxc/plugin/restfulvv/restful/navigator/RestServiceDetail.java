@@ -143,6 +143,7 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/ {
         this.searchKey.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
+                System.out.println("code1 = " + e.getKeyCode());
             }
 
             @Override
@@ -151,8 +152,9 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/ {
 
             @Override
             public void keyReleased(KeyEvent e) {
+                System.out.println("code = " + e.getKeyCode());
                 //回车直接搜索
-                if (e.getKeyCode() == 13) {
+                if (e.getKeyCode() == 10) {
                     try {
                         if(searchKey != null) {
                             responseTextArea.search(searchKey);
