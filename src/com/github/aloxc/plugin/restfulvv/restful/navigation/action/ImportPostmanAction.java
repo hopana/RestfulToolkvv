@@ -19,17 +19,15 @@ import java.awt.*;
 public class ImportPostmanAction extends AnAction implements DumbAware {
     @Override
     public void actionPerformed(@NotNull AnActionEvent event) {
-//        Messages.showMessageDialog("import data from postman ！","Import Postman Data", IconLoader.getIcon("/images/timg.jpg"));
         Project project = event.getProject();
         Postman postman = new Postman();
-        postman.setMaximumSize(new Dimension(700,500));
-        postman.setMinimumSize(new Dimension(700,500));
-        postman.setPreferredSize(new Dimension(700,500));
-
+        postman.setMaximumSize(new Dimension(700,150));
+        postman.setMinimumSize(new Dimension(700,150));
+        postman.setPreferredSize(new Dimension(700,150));
         VDialog dialog = new VDialog(null, postman,
-                new Dimension(700,500),
-                new Dimension(700,500),
-                new Dimension(700,500),
+                new Dimension(500,150),
+                new Dimension(500,150),
+                new Dimension(500,150),
                 IconLoader.getIcon("/icons/P.png"),
                 "导入Postman数据"
         );
