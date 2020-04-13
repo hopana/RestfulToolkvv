@@ -24,7 +24,7 @@ public class GlobalParameterSettingAction extends AnAction implements DumbAware 
         designer.setMinimumSize(new Dimension(700,500));
         designer.setPreferredSize(new Dimension(700,500));
 
-        VDialog dialog = new VDialog(null,designer,
+        VDialog dialog = new VDialog(null, designer,
                 new Dimension(700,500),
                 new Dimension(700,500),
                 new Dimension(700,500),
@@ -32,41 +32,5 @@ public class GlobalParameterSettingAction extends AnAction implements DumbAware 
                 "全局参数设置"
                 );
         dialog.setVisible(true);
-//
-//        long startTime = System.currentTimeMillis();
-//        if(project == null)return;
-//        @SystemIndependent String basePath = project.getBasePath();
-//        String configFile = basePath + "/RestfulVV.json";
-//        File  file = new File(configFile);
-//        if(!file.exists()){
-//            try {
-//                file.createNewFile();
-//                RestfulVV vv = new RestfulVV();
-//                String s = JsonUtils.toJson(vv);
-//                FileUtils.write(file,s,"utf-8");
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//        List<RestServiceProject> projects = RestServiceProjectsManager.getInstance(project).getServiceProjects();
-//        int serviceCount = 0;
-////        DefaultMutableTreeNode rootTreeNode = createTreeNode("REST Services");
-////        myTreeBuilder.addSubtreeToUpdate(rootTreeNode);
-//
-//        for (RestServiceProject each : projects) {
-//            System.out.println("project  " + each.getModuleName());
-//            System.out.println("==================");
-//            List<RestServiceItem> serviceItems = each.getServiceItems();
-//            serviceCount += serviceItems.size();
-//            for (RestServiceItem serviceItem : serviceItems) {
-//                System.out.println(serviceItem.getFullUrl() + "\t\t" + serviceItem.getUrl());
-//            }
-////            RestServiceStructure.ProjectNode node = findNodeFor(each);
-////            if (node == null) {
-////                node = new RestServiceStructure.ProjectNode(myRoot,each);
-////                myProjectToNodeMapping.put(each, node);
-////            }
-//        }
-//        System.out.println("basePath " + basePath + ",spend " + (System.currentTimeMillis() - startTime));
     }
 }

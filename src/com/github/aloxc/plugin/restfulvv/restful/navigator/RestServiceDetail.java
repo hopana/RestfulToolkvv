@@ -39,10 +39,8 @@ import static javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED;
 import static javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED;
 import static javax.swing.tree.TreeSelectionModel.SINGLE_TREE_SELECTION;
 
-//import com.intellij.openapi.editor.colors.impl.AppEditorFontOptions;
-//import com.intellij.ui.components.JBPanelWithEmptyText;
 
-public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
+public class RestServiceDetail extends JBPanel/*WithEmptyText*/ {
     private static RestServiceDetail restServiceDetail;
     /**
      * 用 awt 重新定义，后期再改吧。
@@ -109,6 +107,33 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
         bindSearchActionListener();
 
         bindSearchKeyListener();
+
+        bindSaveCaseListener();
+    }
+
+    private void bindSaveCaseListener() {
+        saveCaseButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                int x = e.getX();
+                int y = e.getY();
+                JPopupMenu menu = new JPopupMenu();        //创建保存菜单
+                JMenuItem save = new JMenuItem("Save ");//保存
+                save.setIcon(IconLoader.getIcon("/icons/save.png"));
+                JMenuItem saveAs = new JMenuItem("Save as");//另存为
+                saveAs.setIcon(IconLoader.getIcon("/icons/saveas.png"));
+                menu.add(save);
+                menu.add(saveAs);
+                save.addActionListener(evt -> {
+                    Messages.showMessageDialog("点击了" + ((JMenuItem) e.getSource()).getText(), "保存行为", IconLoader.getIcon("/icons/save.png"));
+                });
+                saveAs.addActionListener(evt -> {
+                    Messages.showMessageDialog("点击了" + ((JMenuItem) evt.getSource()).getText(), "保存行为", IconLoader.getIcon("/icons/save.png"));
+                });
+                menu.show(saveCaseButton, x, y);
+            }
+        });
     }
 
     /**
@@ -119,15 +144,17 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
             @Override
             public void keyTyped(KeyEvent e) {
             }
+
             @Override
             public void keyPressed(KeyEvent e) {
             }
+
             @Override
             public void keyReleased(KeyEvent e) {
                 //回车直接搜索
                 if (e.getKeyCode() == 13) {
                     try {
-                        responseTextArea.search((JTextArea)e.getSource());
+                        responseTextArea.search(searchKey);
                     } catch (BadLocationException var3) {
                         var3.printStackTrace();
                     }
@@ -140,9 +167,9 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
      * 搜索按钮动作监听
      */
     private void bindSearchActionListener() {
-        this.searchButton.addActionListener(event-> {
+        this.searchButton.addActionListener(event -> {
             try {
-                responseTextArea.search((JTextArea)event.getSource());
+                responseTextArea.search(searchKey);
             } catch (BadLocationException e) {
                 System.err.println("搜索按钮动作监听异常");
                 e.printStackTrace();
@@ -183,32 +210,32 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
                 new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
                         GridConstraints.SIZEPOLICY_FIXED,
                         GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
-                        new Dimension(18,-1), new Dimension(18,-1), new Dimension(18,-1)));
+                        new Dimension(18, -1), new Dimension(18, -1), new Dimension(18, -1)));
 
         requestPane.add(midPane,
                 new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
                         GridConstraints.SIZEPOLICY_FIXED,
                         GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
-                        new Dimension(250,-1), new Dimension(250,-1), new Dimension(250,-1)));
+                        new Dimension(250, -1), new Dimension(250, -1), new Dimension(250, -1)));
 
         requestPane.add(rightPane,
                 new GridConstraints(0, 2, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
                         GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
                         GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
-                        new Dimension(-1,-1), new Dimension(-1,-1), new Dimension(-1,-1)));
+                        new Dimension(-1, -1), new Dimension(-1, -1), new Dimension(-1, -1)));
 
         this.add(requestPane,
                 new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
                         GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
                         GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
-                        new Dimension(-1,-1), new Dimension(-1,-1), new Dimension(-1,-1)));
+                        new Dimension(-1, -1), new Dimension(-1, -1), new Dimension(-1, -1)));
     }
 
     private void initUserCaseRightPanel() {
         GridLayoutManager rightPaneLayoutManager = new GridLayoutManager(2, 1);
         rightPaneLayoutManager.setHGap(1);
         rightPaneLayoutManager.setVGap(1);
-        rightPaneLayoutManager.setMargin(new Insets(0,5,0,0));
+        rightPaneLayoutManager.setMargin(new Insets(0, 5, 0, 0));
         rightPane = new JBPanel<>();
         rightPane.setLayout(rightPaneLayoutManager);
 //        rightPane.setMaximumSize(new Dimension(-1,26));
@@ -219,7 +246,7 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
                 new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
                         GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
                         GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
-                        new Dimension(-1,-1), new Dimension(-1,-1), new Dimension(-1,-1)));
+                        new Dimension(-1, -1), new Dimension(-1, -1), new Dimension(-1, -1)));
 
 
         searchPane = new JBPanel<>();
@@ -264,7 +291,7 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
         rightPane.add(searchPane,
                 new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
                         GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED,
-                        new Dimension(-1,-1), new Dimension(-1,-1),  new Dimension(-1,-1)));
+                        new Dimension(-1, -1), new Dimension(-1, -1), new Dimension(-1, -1)));
 
     }
 
@@ -272,49 +299,49 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
         GridLayoutManager midPaneLayoutManager = new GridLayoutManager(2, 1);
         midPaneLayoutManager.setHGap(1);
         midPaneLayoutManager.setVGap(1);
-        midPaneLayoutManager.setMargin(new Insets(0,5,0,0));
+        midPaneLayoutManager.setMargin(new Insets(0, 5, 0, 0));
         midPane = new JBPanel<>();
         midPane.setLayout(midPaneLayoutManager);
-        midPane.setMaximumSize(new Dimension(250,26));
-        midPane.setMinimumSize(new Dimension(250,26));
-        midPane.setPreferredSize(new Dimension(250,26));
+        midPane.setMaximumSize(new Dimension(250, 26));
+        midPane.setMinimumSize(new Dimension(250, 26));
+        midPane.setPreferredSize(new Dimension(250, 26));
 
         midPane.add(caseTextPane,
                 new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
                         GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED,
-                        new Dimension(250,28), new Dimension(250,28),  new Dimension(250,28)));
+                        new Dimension(250, 28), new Dimension(250, 28), new Dimension(250, 28)));
 
-        DefaultTreeModel model = (DefaultTreeModel)userCaseTree.getModel();
-        DefaultMutableTreeNode root = (DefaultMutableTreeNode)model.getRoot();
+        DefaultTreeModel model = (DefaultTreeModel) userCaseTree.getModel();
+        DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
         root.removeAllChildren();
 
-        JPopupMenu menu=new JPopupMenu();		//创建菜单
-        JMenuItem deleteMenu=new JMenuItem("Delete");//创建菜单项(点击菜单项相当于点击一个按钮)
-        JMenuItem modifyMenu=new JMenuItem("Modify");//创建菜单项(点击菜单项相当于点击一个按钮)
+        JPopupMenu menu = new JPopupMenu();        //创建菜单
+        JMenuItem deleteMenu = new JMenuItem("Delete");//创建菜单项(点击菜单项相当于点击一个按钮)
+        JMenuItem modifyMenu = new JMenuItem("Modify");//创建菜单项(点击菜单项相当于点击一个按钮)
         menu.add(deleteMenu);
         menu.add(modifyMenu);
         deleteMenu.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                Messages.showMessageDialog("删除treeNode" ,"删除元素", IconLoader.getIcon("/icons/delete.png"));
+                Messages.showMessageDialog("删除treeNode", "删除元素", IconLoader.getIcon("/icons/delete.png"));
 
             }
         });
         modifyMenu.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                Messages.showMessageDialog("编辑treeNode" ,"编辑元素", IconLoader.getIcon("/icons/delete.png"));
+                Messages.showMessageDialog("编辑treeNode", "编辑元素", IconLoader.getIcon("/icons/delete.png"));
 
             }
         });
-        userCaseTree.addTreeSelectionListener(new TreeSelectionListener(){
+        userCaseTree.addTreeSelectionListener(new TreeSelectionListener() {
             @Override
             public void valueChanged(TreeSelectionEvent event) {
                 DefaultMutableTreeNode node = (DefaultMutableTreeNode) userCaseTree.getLastSelectedPathComponent();
                 int selectIndex = node.getParent().getIndex(node);
                 System.out.println("选中索引 " + selectIndex);
 
-                if(null!=node) {
+                if (null != node) {
                     Object userObject = node.getUserObject();
                     if (null != userObject) {
                         if (userObject instanceof String) {
@@ -325,7 +352,7 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
                 }
             }
         });
-        for(int i = 0;i<50;i++){
+        for (int i = 0; i < 50; i++) {
             DefaultMutableTreeNode node = new DefaultMutableTreeNode("节点\t" + i);
             root.add(node);
         }
@@ -340,7 +367,7 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
         DefaultTreeSelectionModel singleSelectionModel = new DefaultTreeSelectionModel();
         singleSelectionModel.setSelectionMode(SINGLE_TREE_SELECTION);
         userCaseTree.setSelectionModel(singleSelectionModel);
-        DefaultTreeCellRenderer render=(DefaultTreeCellRenderer)(userCaseTree.getCellRenderer());
+        DefaultTreeCellRenderer render = (DefaultTreeCellRenderer) (userCaseTree.getCellRenderer());
         render.setIcon(null);
         render.setLeafIcon(null);
         render.setOpenIcon(null);
@@ -354,12 +381,12 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
                 new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
                         GridConstraints.SIZEPOLICY_FIXED,
                         GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
-                        new Dimension(250,-1), new Dimension(250,-1), new Dimension(250,-1)));
+                        new Dimension(250, -1), new Dimension(250, -1), new Dimension(250, -1)));
         midPane.add(userCaseScroll,
                 new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
                         GridConstraints.SIZEPOLICY_FIXED,
                         GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
-                        new Dimension(250,-1), new Dimension(250,-1), new Dimension(250,-1)));
+                        new Dimension(250, -1), new Dimension(250, -1), new Dimension(250, -1)));
 
     }
 
@@ -401,7 +428,7 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                Messages.showMessageDialog("点击了编辑按钮" ,"编辑元素", IconLoader.getIcon("/icons/modify.png"));
+                Messages.showMessageDialog("点击了编辑按钮", "编辑元素", IconLoader.getIcon("/icons/modify.png"));
             }
         });
 
@@ -409,7 +436,7 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                Messages.showMessageDialog("点击了删除按钮" ,"删除元素", IconLoader.getIcon("/icons/delete.png"));
+                Messages.showMessageDialog("点击了删除按钮", "删除元素", IconLoader.getIcon("/icons/delete.png"));
             }
         });
 
@@ -420,44 +447,45 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
 //                Messages.showMessageDialog("点击了环境切换按钮" ,"环境切换", IconLoader.getIcon("/icons/env.png"));
                 int x = e.getX();
                 int y = e.getY();
-                JPopupMenu menu=new JPopupMenu();		//创建菜单
-                for(int i = 0;i<5;i++){
-                    JMenuItem item=new JMenuItem("env " + i);//创建菜单项(点击菜单项相当于点击一个按钮)
+                JPopupMenu menu = new JPopupMenu();        //创建菜单
+                for (int i = 0; i < 5; i++) {
+                    JMenuItem item = new JMenuItem("env " + i);//创建菜单项(点击菜单项相当于点击一个按钮)
+                    item.setIcon(IconLoader.getIcon("/icons/" + (i+1) + ".png"));
                     menu.add(item);
                     item.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
-                            JMenuItem item = (JMenuItem)e.getSource();
-                            Messages.showMessageDialog("点击了环境切换按钮111" + item.getText() ,"环境切换", IconLoader.getIcon("/icons/env.png"));
+                            JMenuItem item = (JMenuItem) e.getSource();
+                            Messages.showMessageDialog("点击了环境切换按钮111" + item.getText(), "环境切换", IconLoader.getIcon("/icons/env.png"));
                         }
                     });
                 }
-                menu.show(envSelectButton,x,y);
+                menu.show(envSelectButton, x, y);
             }
         });
         leftNavPane.add(saveCaseButton,
                 new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
                         GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED,
-                        new Dimension(16,16), new Dimension(16,16),  new Dimension(16,16)));
+                        new Dimension(16, 16), new Dimension(16, 16), new Dimension(16, 16)));
         leftNavPane.add(envSelectButton,
                 new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
                         GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED,
-                        new Dimension(16,16), new Dimension(16,16),  new Dimension(16,16)));
+                        new Dimension(16, 16), new Dimension(16, 16), new Dimension(16, 16)));
 
         leftNavPane.add(testButton,
                 new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
                         GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED,
-                        new Dimension(16,16), new Dimension(16,16),  new Dimension(16,16)));
+                        new Dimension(16, 16), new Dimension(16, 16), new Dimension(16, 16)));
 
         leftNavPane.add(modifyButton,
                 new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
                         GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED,
-                        new Dimension(16,16), new Dimension(16,16),  new Dimension(16,16)));
+                        new Dimension(16, 16), new Dimension(16, 16), new Dimension(16, 16)));
 
         leftNavPane.add(deleteButton,
                 new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
                         GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED,
-                        new Dimension(16,16), new Dimension(16,16),  new Dimension(16,16)));
+                        new Dimension(16, 16), new Dimension(16, 16), new Dimension(16, 16)));
 
     }
 
@@ -494,7 +522,7 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
     private void bindSendButtonActionListener() {
         sendButton.addActionListener(e -> {
             // PluginManagerMain
-            ProgressManager.getInstance().run(new Task.Backgroundable(null,"Sending Request") {
+            ProgressManager.getInstance().run(new Task.Backgroundable(null, "Sending Request") {
                 @Override
                 public void run(@NotNull ProgressIndicator indicator) {
                     final Runnable runnable = () -> {
@@ -506,7 +534,7 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
                             if (paramMap != null && paramMap.size() > 0) {
                                 // set PathVariable value to request URI
                                 for (String key : paramMap.keySet()) {
-                                    url = url.replaceFirst("\\{("+key+"[\\s\\S]*?)\\}",paramMap.get(key));
+                                    url = url.replaceFirst("\\{(" + key + "[\\s\\S]*?)\\}", paramMap.get(key));
                                 }
                             }
 
@@ -528,7 +556,7 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
                         String response;
                         if (requestBodyTextArea != null && StringUtils.isNotBlank(requestBodyTextArea.getText())) {
                             response = RequestHelper.postRequestBodyWithJson(url, requestBodyTextArea.getText());
-                        }else{
+                        } else {
                             response = RequestHelper.request(url, method);
                         }
 
@@ -565,11 +593,13 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
                 super.mousePressed(e);
                 urlField.selectAll();
             }
+
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mousePressed(e);
                 urlField.selectAll();
             }
+
             @Override
             public void mouseMoved(MouseEvent e) {
                 super.mousePressed(e);
@@ -629,10 +659,9 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
             }
         }
 
-        if (requestParamsTextArea == null){
+        if (requestParamsTextArea == null) {
             requestParamsTextArea = createTextArea(paramBuilder.toString());
-        }
-        else {
+        } else {
             requestParamsTextArea.setText(paramBuilder.toString());
 //            addRequestTabbedPane("RequestParams", requestParamsTextArea);
         }
@@ -645,10 +674,9 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
     public void addRequestBodyTabPanel(String text) {
 //        jTextArea.setAutoscrolls(true);
         String reqBodyTitle = "RequestBody";
-        if (requestBodyTextArea == null){
+        if (requestBodyTextArea == null) {
             requestBodyTextArea = createTextArea(text);
-        }
-        else {
+        } else {
             requestBodyTextArea.setText(text);
         }
 
@@ -662,9 +690,9 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
         JScrollPane jbScrollPane = new JBScrollPane(jTextArea, VERTICAL_SCROLLBAR_AS_NEEDED, HORIZONTAL_SCROLLBAR_AS_NEEDED);
         jTextArea.addKeyListener(new TextAreaKeyAdapter(jTextArea));
 
-        rightTabbedPane.addTab(title, jbScrollPane) ;
-        jTextArea.format();
-        rightTabbedPane.setSelectedComponent(jbScrollPane) ;//.setSelectedIndex(rightTabbedPane.getTabCount() - 1);
+        rightTabbedPane.addTab(title, jbScrollPane);
+//        jTextArea.format();
+        rightTabbedPane.setSelectedComponent(jbScrollPane);//.setSelectedIndex(rightTabbedPane.getTabCount() - 1);
     }
 
     /*添加 Response Tab*/
@@ -674,15 +702,14 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
         if (responseTextArea == null) {
             responseTextArea = createTextArea(text);
             addRequestTabbedPane(responseTabTitle, responseTextArea);
-        }
-        else {
+        } else {
             Component componentAt = null;
             responseTextArea.setText(text);
             int tabCount = rightTabbedPane.getTabCount();
             for (int i = 0; i < tabCount; i++) {
                 if (rightTabbedPane.getTitleAt(i).equals(responseTabTitle)) {
                     componentAt = rightTabbedPane.getComponentAt(i);
-                    rightTabbedPane.addTab(responseTabTitle,componentAt);
+                    rightTabbedPane.addTab(responseTabTitle, componentAt);
                     rightTabbedPane.setSelectedComponent(componentAt);
                     break;
 //                    Component component = rightTabbedPane.getComponent(i);
@@ -734,7 +761,7 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
 
         int size = fontPreferences.getSize(fontPreferences.getFontFamily());
 //        Font font=new Font(FontPreferences.FALLBACK_FONT_FAMILY,Font.PLAIN,size);
-        Font font=new Font(FontPreferences.DEFAULT_FONT_NAME,Font.PLAIN,size);
+        Font font = new Font(FontPreferences.DEFAULT_FONT_NAME, Font.PLAIN, size);
 //        String fallbackFontFamily = getFallbackName(fontFamily, size, null);
         //有效字体
         for (String effectiveFontFamily : effectiveFontFamilies) {
@@ -760,7 +787,7 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
         FontPreferences fontPreferences = this.getFontPreferences();
         String fontFamily = fontPreferences.getFontFamily();
         int size = fontPreferences.getSize(fontFamily);
-        return new Font("Monospaced",Font.PLAIN,size);
+        return new Font("Monospaced", Font.PLAIN, size);
     }
 
 
@@ -772,7 +799,7 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
     }
 
     private void resetTextComponent(VTextPane textComponent) {
-        if( textComponent != null && StringUtils.isNotBlank(textComponent.getText())) {
+        if (textComponent != null && StringUtils.isNotBlank(textComponent.getText())) {
             textComponent.setText("");
         }
     }
@@ -798,7 +825,7 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/{
 
             // 组合键ctrl+enter自定义，当Ctrl (Command on Mac)+Enter组合键按下时响应
             if ((event.getKeyCode() == KeyEvent.VK_ENTER)
-                    && (event.isControlDown() || event.isMetaDown()) ) {
+                    && (event.isControlDown() || event.isMetaDown())) {
 
                 //解析，格式化json
                 String oldValue = jTextArea.getText();

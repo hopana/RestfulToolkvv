@@ -1,13 +1,10 @@
 package com.github.aloxc.plugin.restfulvv.restful.component;
 
 import com.github.aloxc.plugin.restfulvv.restful.common.Consts;
-import com.sun.xml.bind.v2.runtime.reflect.opt.Const;
 
 import javax.swing.*;
 import javax.swing.text.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 /**
  * 一个显示行号的JTextPane组件
@@ -76,7 +73,9 @@ public class VTextPane extends JTextPane {
     protected void drawLineNumber(Graphics g) {
         setMargin(new Insets(0, 35, 0, 0));
         // 绘制行号的背景色
-        g.setColor(new Color(242, 242, 242));
+//        g.setColor(new Color(242, 242, 242));
+        g.setColor(null);
+
         g.fillRect(0, 0, 30, getHeight());
         // 获得有多少行
         StyledDocument docu = getStyledDocument();
@@ -271,10 +270,11 @@ public class VTextPane extends JTextPane {
             buffer.append(FOUR_BLANK_STR);
     }
 
-    public void search(JTextArea input) throws BadLocationException {
-        String key = input.getText().trim();
-        if ("".equals(key.trim()))
+    public void search(JTextField input) throws BadLocationException {
+        if (input.getText() == null || "".equals(input.getText().trim())) {
             return;
+        }
+        String key = input.getText().trim();
         if (!key.equals(this.lastKeyStr)) {
             this.nowSeg = 0;
             this.nowSegStart = 0;
