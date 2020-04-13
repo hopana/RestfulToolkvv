@@ -5,11 +5,11 @@ import com.github.aloxc.plugin.restfulvv.restful.common.PsiMethodHelper;
 import com.github.aloxc.plugin.restfulvv.restful.common.ToolkitIcons;
 import com.github.aloxc.plugin.restfulvv.restful.method.HttpMethod;
 import com.github.aloxc.plugin.restfulvv.restful.navigation.action.RestServiceItem;
-import com.intellij.icons.AllIcons;
 import com.intellij.lang.java.JavaLanguage;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.Disposer;
+import com.intellij.openapi.util.IconLoader;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiMethod;
 import com.intellij.ui.treeStructure.*;
@@ -55,7 +55,6 @@ public class RestServiceStructure  extends SimpleTreeStructure {
 
         myTreeBuilder = new SimpleTreeBuilder(tree, (DefaultTreeModel)tree.getModel(), this, null);
         Disposer.register(myProject, myTreeBuilder);
-
         myTreeBuilder.initRoot();
         myTreeBuilder.expand(myRoot, null);
 
@@ -148,7 +147,6 @@ public class RestServiceStructure  extends SimpleTreeStructure {
                 filtered.clear();
                 break;
             }
-            //noinspection unchecked
             filtered.add((T)node);
         }
         return filtered;
@@ -205,8 +203,8 @@ public class RestServiceStructure  extends SimpleTreeStructure {
         List<ProjectNode> projectNodes  = new ArrayList<>();
         protected RootNode() {
             super(null);
-            getTemplatePresentation().setIcon(AllIcons.Actions.Module);
-            setIcon(AllIcons.Actions.Module); //兼容 IDEA 2016
+            getTemplatePresentation().setIcon(IconLoader.getIcon("/icons/module.png"));
+            setIcon(IconLoader.getIcon("/icons/module.png"));
         }
 
         @Override

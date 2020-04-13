@@ -1,6 +1,7 @@
 package com.github.aloxc.plugin.restfulvv.restful.navigator;
 
 import com.github.aloxc.plugin.restfulvv.restful.common.RequestHelper;
+import com.github.aloxc.plugin.restfulvv.restful.highlight.JTextAreaHighlight;
 import com.github.aloxc.plugin.restfulvv.utils.JsonUtils;
 import com.github.aloxc.plugin.restfulvv.utils.ToolkitUtil;
 import com.google.gson.Gson;

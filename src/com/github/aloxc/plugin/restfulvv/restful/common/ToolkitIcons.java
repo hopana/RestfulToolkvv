@@ -2,7 +2,6 @@ package com.github.aloxc.plugin.restfulvv.restful.common;
 
 
 import com.github.aloxc.plugin.restfulvv.restful.method.HttpMethod;
-import com.intellij.icons.AllIcons;
 import com.intellij.openapi.util.IconLoader;
 
 import javax.swing.*;
@@ -36,13 +35,7 @@ public class ToolkitIcons {
         // OPTIONS HEAD
     }
 
-    public static final Icon MODULE = AllIcons.Modules.ModulesNode; // 16x16
-    public static final Icon Refresh = AllIcons.Actions.Refresh; // 16x16
-//    public static final Icon SERVICE = IconLoader.getIcon("/icons/service.png"); // 16x16
-
-//    public static final Icon SERVICE = IconLoader.getIcon("/icons/s1.png"); // 16x16
-//    public static final Icon SERVICE = IconLoader.getIcon("/icons/s2.png"); // 16x16
-//    public static final Icon SERVICE = IconLoader.getIcon("/icons/s3.png"); // 16x16
+    public static final Icon MODULE = IconLoader.getIcon("/icons/moduleNode.png"); // 16x16
     public static final Icon SERVICE = IconLoader.getIcon("/icons/restvv.png"); // 16x16
 
 

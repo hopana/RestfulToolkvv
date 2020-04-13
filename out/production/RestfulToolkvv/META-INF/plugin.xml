@@ -169,8 +169,8 @@ Module level components 对应的是 Project 里的每个 Module.
     </group>
 
 
-    <group id="RestfulToolkvv.RestMethod.EditorPopupMenu" text="RESTful Toolkit"
-           description="RESTful Toolkit"
+    <group id="RestfulToolkvv.RestMethod.EditorPopupMenu" text="RestfulVV"
+           description="RestfulVV"
            popup="false">
       <!--<add-to-group group-id="EditorPopupMenu" anchor="last" relative-to-action="EditorToggleColumnMode"/>-->
       <add-to-group group-id="EditorPopupMenu" anchor="first"/>
