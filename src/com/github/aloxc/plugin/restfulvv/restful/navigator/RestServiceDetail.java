@@ -154,7 +154,9 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/ {
                 //回车直接搜索
                 if (e.getKeyCode() == 13) {
                     try {
-                        responseTextArea.search(searchKey);
+                        if(searchKey != null) {
+                            responseTextArea.search(searchKey);
+                        }
                     } catch (BadLocationException var3) {
                         var3.printStackTrace();
                     }
@@ -169,7 +171,9 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/ {
     private void bindSearchActionListener() {
         this.searchButton.addActionListener(event -> {
             try {
-                responseTextArea.search(searchKey);
+                if(searchKey != null) {
+                    responseTextArea.search(searchKey);
+                }
             } catch (BadLocationException e) {
                 System.err.println("搜索按钮动作监听异常");
                 e.printStackTrace();
