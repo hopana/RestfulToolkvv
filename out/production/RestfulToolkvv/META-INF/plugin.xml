@@ -206,7 +206,7 @@ Module level components 对应的是 Project 里的每个 Module.
             icon="/icons/test.png">
     </action>
     <!--    全局參數設置按鈕 -->
-    <action id="Toolkit.GlobalsettingService" class="com.github.aloxc.plugin.restfulvv.restful.navigation.action.GlobalParameterSettingAction"
+    <action id="Toolkit.GlobalsettingService" class="com.github.aloxc.plugin.restfulvv.restful.navigation.action.SettingAction"
             icon="/icons/setting.png" text="Global setting">
     </action>
     <!--    语言切换按钮 -->

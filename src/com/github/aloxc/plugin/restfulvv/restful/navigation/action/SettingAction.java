@@ -16,7 +16,7 @@ import java.awt.*;
  * 全局參數設置
  * @author liyh
  */
-public class GlobalParameterSettingAction extends AnAction implements DumbAware {
+public class SettingAction extends AnAction implements DumbAware {
     @Override
     public void actionPerformed(@NotNull AnActionEvent event) {
         Project project = event.getProject();

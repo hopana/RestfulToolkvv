@@ -69,6 +69,7 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/ {
     private JCheckBox valueCheckBox;
     private JTextField searchKey;
     private JButton searchButton;
+    private JButton requestParamButton;
 
     public VTextPane requestParamsTextArea;
     public VTextPane requestBodyTextArea;
@@ -428,6 +429,19 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/ {
         modifyButton.setRolloverEnabled(true);
         modifyButton.setFocusPainted(true);
 
+        requestParamButton.setBorder(BorderFactory.createRaisedBevelBorder());
+        requestParamButton.setBorderPainted(false);
+        requestParamButton.setOpaque(false);
+        requestParamButton.setRolloverEnabled(true);
+        requestParamButton.setFocusPainted(true);
+
+        requestParamButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                Messages.showMessageDialog("点击了请求设置按钮", "请求元素", IconLoader.getIcon("/icons/modify.png"));
+            }
+        });
         modifyButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -435,7 +449,6 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/ {
                 Messages.showMessageDialog("点击了编辑按钮", "编辑元素", IconLoader.getIcon("/icons/modify.png"));
             }
         });
-
         deleteButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -467,27 +480,31 @@ public class RestServiceDetail extends JBPanel/*WithEmptyText*/ {
                 menu.show(envSelectButton, x, y);
             }
         });
-        leftNavPane.add(saveCaseButton,
+        leftNavPane.add(requestParamButton,
                 new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
                         GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED,
                         new Dimension(16, 16), new Dimension(16, 16), new Dimension(16, 16)));
-        leftNavPane.add(envSelectButton,
+        leftNavPane.add(saveCaseButton,
                 new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
+                        GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED,
+                        new Dimension(16, 16), new Dimension(16, 16), new Dimension(16, 16)));
+        leftNavPane.add(envSelectButton,
+                new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
                         GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED,
                         new Dimension(16, 16), new Dimension(16, 16), new Dimension(16, 16)));
 
         leftNavPane.add(testButton,
-                new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
+                new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
                         GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED,
                         new Dimension(16, 16), new Dimension(16, 16), new Dimension(16, 16)));
 
         leftNavPane.add(modifyButton,
-                new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
+                new GridConstraints(4, 0, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
                         GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED,
                         new Dimension(16, 16), new Dimension(16, 16), new Dimension(16, 16)));
 
         leftNavPane.add(deleteButton,
-                new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
+                new GridConstraints(5, 0, 1, 1, GridConstraints.ANCHOR_SOUTHEAST, GridConstraints.FILL_BOTH,
                         GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED,
                         new Dimension(16, 16), new Dimension(16, 16), new Dimension(16, 16)));
 
