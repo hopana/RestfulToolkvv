@@ -258,11 +258,11 @@ Module level components 对应的是 Project 里的每个 Module.
 <!--      全局參數設置按鈕 加到本插件的上部导航-->
       <reference id="Toolkit.ImportPostmanServices"/>
       <reference id="Toolkit.GlobalsettingService"/>
-      <reference id="Toolkit.LanguageService"/>
+<!--      <reference id="Toolkit.LanguageService"/>-->
       <separator/>
-      <reference id="Toolkit.AboutService"/>
-      <reference id="Toolkit.FeedbackService"/>
-      <reference id="Toolkit.DonateService"/>
+<!--      <reference id="Toolkit.AboutService"/>-->
+<!--      <reference id="Toolkit.FeedbackService"/>-->
+<!--      <reference id="Toolkit.DonateService"/>-->
       <separator/>
     </group>
 
